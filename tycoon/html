@@ -1,0 +1,5728 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ore Tycoon</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" >
+  <style>
+      body {
+    background: grey;
+    color: #fff;
+    padding: 25px;
+    font-family: Verdana;
+  }
+  #cashval{
+    background-color: black;
+    color:lime;
+    font-size: 20px;
+    height:40px
+  }
+  button{
+    background-color:red;
+    width:150px;
+    height:150px;
+    font-family: Verdana;
+  }
+  button:hover{
+    cursor:pointer;
+    background-color:rgb(255, 103, 77);
+  }
+  canvas{
+    background-color:grey;
+    height:100%;
+    width:100%;
+  }
+  
+  </style>
+</head>
+<body>
+  <canvas id='tycoon'></canvas>
+  <script>
+    var factory=document.getElementById("tycoon")
+factory.width=720;
+factory.height=660;
+var rebirth = 0;
+const C=100;
+const edit=factory.getContext("2d")
+function rect(x,y,l,w){
+  edit.fillRect(x,y,l,w)
+}
+function rgbr(i){
+  return "rgb("+window[`r${i}`]+","+window[`g${i}`]+","+window[`b${i}`]+")"
+}
+function fill(x){
+  edit.fillStyle=x
+}
+function text(a,x,y){
+  edit.fillText(a,x,y)
+}
+function stx(a){
+  edit.font=a
+}
+function strpow10(pow10){ 
+    var a=0;
+    var b=0;
+    var c=0;
+    var d=0;
+    var e=0;
+    var f=0;
+    var g=0;
+    var h=0;
+    var i=0;
+    if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==0){
+        a="";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==1){
+        if(Math.floor(pow10/3)>=10){
+        a="";
+        }else{
+        a="k";
+        }
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==2){
+        if(Math.floor(pow10/3)>=10){
+        a="U";
+        }else{
+        a="M";
+        }
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==3){
+        if(Math.floor(pow10/3)>=10){
+        a="D";
+        }else{
+        a="B";
+        }
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==4){
+        a="T";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==5){
+        a="Qd";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==6){
+        a="Qn";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==7){
+        a="Sx";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==8){
+        a="Sp";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==9){
+        a="Oc";
+    }else if(Math.floor(pow10/3)-10*Math.floor((pow10-3)/30)==10){
+        a="No";
+    }
+    if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==0){
+        b=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==1){
+        b="De"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==2){
+        b="Vg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==3){
+        b="Tg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==4){
+        b="Qdg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==5){
+        b="Qng"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==6){
+        b="Sxg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==7){
+        b="Spg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==8){
+        b="Ocg"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10)-10*Math.floor((pow10-3)/300)==9){
+        b="Nog"
+    }
+    if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==0){
+        c=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==1){
+        c="Cn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==2){
+        c="Dcn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==3){
+        c="Tcn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==4){
+        c="Qdgn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==5){
+        c="Qngn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==6){
+        c="Sxgn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==7){
+        c="Spgn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==8){
+        c="Ocgn"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100)-10*Math.floor((pow10-3)/3000)==9){
+        c="Nogn"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/1000))-10*Math.floor((pow10-3)/30000)==0){
+        d=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==1){
+        d="Mi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==2){
+        d="Dmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==3){
+        d="Tmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==4){
+        d="Qdmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==5){
+        d="Qnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==6){
+        d="Sxmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==7){
+        d="Spmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==8){
+        d="Ocmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000)-10*Math.floor((pow10-3)/30000)==9){
+        d="Nomi"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/10000))-10*Math.floor((pow10-3)/300000)==0){
+        e=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==1){
+        e="Demi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==2){
+        e="Vgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==3){
+        e="Tgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==4){
+        e="Qdgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==5){
+        e="Qngmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==6){
+        e="Sxgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==7){
+        e="Spgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==8){
+        e="Ocgmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000)-10*Math.floor((pow10-3)/300000)==9){
+        e="Nogmi"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/100000))-10*Math.floor((pow10-3)/3000000)==0){
+        f=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==1){
+        f="Cnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==2){
+        f="DCnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==3){
+        f="TCnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==4){
+        f="Qdgnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==5){
+        f="Qngnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==6){
+        f="Sxgnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==7){
+        f="Spgnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==8){
+        f="Ocgnmi"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000)-10*Math.floor((pow10-3)/3000000)==9){
+        f="Nognmi"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/1000000))-10*Math.floor((pow10-3)/30000000)==0){
+        g=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==1){
+        g="Mc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==2){
+        g="Dmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==3){
+        g="Tmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==4){
+        g="Qdmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==5){
+        g="Qnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==6){
+        g="Sxmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==7){
+        g="Spmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==8){
+        g="Ocmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/1000000)-10*Math.floor((pow10-3)/30000000)==9){
+        g="Nomc"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/10000000))-10*Math.floor((pow10-3)/300000000)==0){
+        h=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==1){
+        h="Demc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==2){
+        h="Vgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==3){
+        h="Tgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==4){
+        h="Qdgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==5){
+        h="Qngmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==6){
+        h="Sxgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==7){
+        h="Spgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==8){
+        h="Ocgmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/10000000)-10*Math.floor((pow10-3)/300000000)==9){
+        h="Nogmc"
+    }
+    if((Math.floor((Math.floor(pow10/3)-1)/100000000))-10*Math.floor((pow10-3)/3000000000)==0){
+        i=""
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==1){
+        i="Cnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==2){
+        i="Dcnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==3){
+        i="Tcnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==4){
+        i="Qdgnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==5){
+        i="Qngnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==6){
+        i="Sxgnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==7){
+        i="Spgnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==8){
+        i="Ocgnmc"
+    }else if(Math.floor((Math.floor(pow10/3)-1)/100000000)-10*Math.floor((pow10-3)/3000000000)==9){
+        i="Nognmc"
+    }
+    if(pow10<0){
+        return Math.round(100*Math.pow(10,pow10))/100     
+    }else if(pow10<3){
+        return Math.round(100*Math.pow(10,pow10-3*Math.floor(pow10/3)))/100 
+    }else if(pow10<3000000003){
+    return Math.round(100*Math.pow(10,pow10-3*Math.floor(pow10/3)))/100+a+b+c+d+e+f+g+h+i
+    }else if(pow10>=3000000003){
+    return "inf"
+    }else{
+      return 0
+    }
+}
+function log10(x){
+  return Math.log(x)/Math.log(10)
+}
+// Workspace
+var money=0;
+for (let l = 2; l <= 18; l++){
+    window[`constant${l}`]=1;
+}
+var r = 255* Math.random();
+var g = 255* Math.random();
+var b = 255* Math.random();
+for (let i = 0; i <= 119; i++) {
+    window[`r${i}`] = 255 * Math.random();
+    window[`g${i}`] = 255 * Math.random();
+    window[`b${i}`] = 255 * Math.random();
+}
+var xf1 = 420;
+var yf1 = 240;
+var t=0;
+var price=0;
+function buy(){
+  if(t>=0){
+    if(money>=price){
+    t+=1
+    if(t==1){
+       price=5
+    }else if(t==2){
+      money-=5
+      price=15
+    }
+    else if(t==3){
+      money-=15
+      price=30
+    }
+    else if(t==4){
+      money-=30
+      price=50
+    }
+    else if(t==5){
+      money-=50
+      price=100
+    }
+    else if(t==6){
+      money-=100
+      price=250
+    }
+    else if(t==7){
+      money-=250
+      price=500
+    }
+    else if(t==8){
+      money-=500
+      price=1250
+    }else if(t==9){
+      money-=1250
+      price=1e4
+    }else if(t==10){
+      money-=1e4
+      price=2e4
+    }else if(t==11){
+      money-=2e4
+      price=3e4
+    }else if(t==12){
+      money-=3e4
+      price=6e4
+    }else if(t==13){
+      money-=6e4
+      price=1.5e5
+    }else if(t==14){
+      money-=1.5e5
+      price=4e5
+    }else if(t==15){
+      money-=4e5
+      price=1e6
+    }else if(t==16){
+      money-=1e6
+      price=2e6
+    }else if(t==17){
+      money-=2e6
+      price=5e6
+    }else if(t==18){
+      money-=5e6
+      price=1e7
+    }else if(t==19){
+      money-=1e7
+      price=3.5e7
+    }else if(t==20){
+      money-=3.5e7
+      price=1e8
+    }else if(t==21){
+      money-=1e8
+      price=2e8
+    }else if(t==22){
+      money-=2e8
+      price=5e8
+    }else if(t==23){
+      money-=5e8
+      price=1.5e9
+    }else if(t==24){
+      money-=1.5e9
+      price=4e9
+    }else if(t==25){
+      money-=4e9
+      price=1e11
+    }else if(t==26){
+      money-=1e11
+      price=2.5e11
+    }else if(t==27){
+      money-=2.5e11
+      price=1e12
+    }else if(t==28){
+      money-=1e12
+      price=2.5e12
+    }else if(t==29){
+      money-=2.5e12
+      price=5e12
+    }else if(t==30){
+      money-=5e12
+      price=1e13
+    }else if(t==31){
+      money-=1e13
+      price=2.5e13
+    }else if(t==32){
+      money-=2.5e13
+      price=5e13
+    }else if(t==33){
+      money-=5e13
+      price=1e14
+    }else if(t==34){
+      money-=1e14
+      price=3e14
+    }else if(t==35){
+      money-=3e14
+      price=1e15
+    }else if(t==36){
+      money-=1e15
+      price=2.5e15
+    }else if(t==37){
+      money-=2.5e15
+      price=5e15
+    }else if(t==38){
+      money-=5e15
+      price=1e16
+    }else if(t==39){
+      money-=1e16
+      price=2e16
+    }else if(t==40){
+      money-=2e16
+      price=2e17
+    }else if(t==41){
+      money-=2e17
+      price=5e17
+    }else if(t==42){
+      money-=5e17
+      price=1e18
+    }else if(t==43){
+      money-=1e18
+      price=3e18
+    }else if(t==44){
+      money-=3e18
+      price=5e18
+    }else if(t==45){
+      money-=5e18
+      price=1e19
+    }else if(t==46){
+      money-=1e19
+      price=3e19
+    }else if(t==47){
+      money-=3e19
+      price=7e19
+    }else if(t==48){
+      money-=7e19
+      price=2e20
+    }else if(t==49){
+      money-=2e20
+      price=1e21
+    }else if(t==50){
+      money-=1e21
+      price=3e21
+    }else if(t==51){
+      money-=3e21
+      price=1e22
+    }else if(t==52){
+      money-=1e22
+      price=2e22
+    }else if(t==53){
+      money-=2e22
+      price=4e22
+    }else if(t==54){
+      money-=4e22
+      price=1e23
+    }else if(t==55){
+      money-=1e23
+      price=2e23
+    }else if(t==56){
+      money-=2e23
+      price=5e23
+    }else if(t==57){
+      money-=5e23
+      price=1e24
+    }else if(t==58){
+      money-=1e24
+      price=1.5e25
+    }else if(t==59){
+      money-=1.5e25
+      price=3e25
+    }else if(t==60){
+      money-=3e25
+      price=7e25
+    }else if(t==61){
+      money-=7e25
+      price=2e26
+    }else if(t==62){
+      money-=2e26
+      price=5e26
+    }else if(t==63){
+      money-=5e26
+      price=1.5e27
+    }else if(t==64){
+      money-=1.5e27
+      price=4e27
+    }else if(t==65){
+      money-=4e27
+      price=1e28
+    }else if(t==66){
+      money-=1e28
+      price=2e28
+    }else if(t==67){
+      money-=2e28
+      price=5e28
+    }else if(t==68){
+      money-=5e28
+      price=1e29
+    }else if(t==69){
+      money-=1e29
+      price=3e29
+    }else if(t==70){
+      money-=3e29
+      price=7e29
+    }else if(t==71){
+      money-=7e29
+      price=1e31 //1
+    }else if(t==72){
+      money-=1e31
+      price=3e31 //2
+    }else if(t==73){
+      money-=3e31
+      price=7e31 //3
+    }else if(t==74){
+      money-=7e31
+      price=2e32 //4
+    }else if(t==75){
+      money-=2e32
+      price=5e32 //5
+    }else if(t==76){
+      money-=5e32
+      price=1e33 //6
+    }else if(t==77){
+      money-=1e33
+      price=3e33 //7
+    }else if(t==78){
+      money-=3e33
+      price=7e33 //8
+    }else if(t==79){
+      money-=7e33
+      price=2e34 //8
+    }else if(t==80){
+      money-=2e34
+      price=3e35 //8
+    }else if(t==81){
+      money-=3e35
+      price=7e35 //8
+    }else if(t==82){
+      money-=7e35
+      price=2e36 //8
+    }else if(t==83){
+      money-=2e36
+      price=4e36 //8
+    }else if(t==84){
+      money-=4e36
+      price=1e37 //8
+    }else if(t==85){
+      money-=1e37
+      price=2e37 //8
+    }else if(t==86){
+      money-=2e37
+      price=4e37 //1
+    }else if(t==87){
+      money-=4e37
+      price=8e37 //2
+    }else if(t==88){
+      money-=8e37
+      price=2e38 //3
+    }else if(t==89){
+      money-=2e38
+      price=2e39 //4
+    }else if(t==90){
+      money-=2e39
+      price=4e39 //5
+    }else if(t==91){
+      money-=4e39
+      price=1e40 //6
+    }else if(t==92){
+      money-=1e40
+      price=3e40 //7
+    }else if(t==93){
+      money-=3e40
+      price=1e41 //8
+    }else if(t==94){
+      money-=1e41
+      price=2e41 //1:1
+    }else if(t==95){
+      money-=2e41
+      price=5e41 //2:1
+    }else if(t==96){
+      money-=5e41
+      price=1e42 //3:1
+    }else if(t==97){
+      money-=1e42
+      price=3e42 //4:1
+    }else if(t==98){
+      money-=3e42
+      price=1e43 //5:1
+    }else if(t==99){
+      money-=1e43
+      price=3e43 //6:1
+    }else if(t==100){
+      money-=3e43
+      price=7e43 //7:1
+    }else if(t==101){
+      money-=7e43
+      price=2e44 //8:1
+    }else if(t==102){
+      money-=2e44
+      price=2e45 //U1
+    }else if(t==103){
+      money-=2e45
+      price=7e45 //1:2
+    }else if(t==104){
+      money-=7e45
+      price=2e46 //2:2
+    }else if(t==105){
+      money-=2e46
+      price=5e46 //3:2
+    }else if(t==106){
+      money-=5e46
+      price=2e47 //4:2
+    }else if(t==107){
+      money-=2e47
+      price=4e47 //5:2
+    }else if(t==108){
+      money-=4e47
+      price=1e48 //6:2
+    }else if(t==109){
+      money-=1e48
+      price=3e48 //7:2
+    }else if(t==110){
+      money-=3e48
+      price=7e48 //8:2
+    }else if(t==111){
+      money-=7e48
+      price=1e50 //U2
+    }else if(t==112){
+      money-=1e50
+      price=2e50 //1:3
+    }else if(t==113){
+      money-=2e50
+      price=4e50 //2:3
+    }else if(t==114){
+      money-=4e50
+      price=1e51 //3:3
+    }else if(t==115){
+      money-=1e51
+      price=3e51 //4:3
+    }else if(t==116){
+      money-=3e51
+      price=7e51 //5:3
+    }else if(t==117){
+      money-=7e51
+      price=2e52 //6:3
+    }else if(t==118){
+      money-=2e52
+      price=5e52 //7:3
+    }else if(t==119){
+      money-=5e52
+      price=1e53 //8:3
+    }else if(t==120){
+      money-=1e53
+      price=7e53 //U3
+    }else if(t==121){
+      money-=7e53
+      price=2e54 //1:4
+    }else if(t==122){
+      money-=2e54
+      price=4e54 //2:4
+    }else if(t==123){
+      money-=4e54
+      price=1e55 //3:4
+    }else if(t==124){
+      money-=1e55
+      price=3e55 //4:4
+    }else if(t==125){
+      money-=3e55
+      price=7e55 //1:1
+    }else if(t==126){
+      money-=7e55
+      price=2e56 //2:1
+    }else if(t==127){
+      money-=2e56
+      price=5e56 //3:1
+    }else if(t==128){
+      money-=5e56
+      price=1e57 //4:1
+    }else if(t==129){
+      money-=1e57
+      price=2e57 //5:1
+    }else if(t==130){
+      money-=2e57
+      price=5e57 //6:1
+    }else if(t==131){
+      money-=5e57
+      price=1e58 //7:1
+    }else if(t==132){
+      money-=1e58
+      price=2.5e58 //8:1
+    }else if(t==133){
+      money-=2.5e58
+      price=2e59 //U1
+    }else if(t==134){
+      money-=2e59
+      price=5e59 //1:2
+    }else if(t==135){
+      money-=5e59
+      price=1e60 //2:2
+    }else if(t==136){
+      money-=1e60
+      price=3e60 //3:2
+    }else if(t==137){
+      money-=3e60
+      price=7e60 //4:2
+    }else if(t==138){
+      money-=7e60
+      price=2e61 //5:2
+    }else if(t==139){
+      money-=2e61
+      price=7e61 //6:2
+    }else if(t==140){
+      money-=7e61
+      price=2e62 //7:2
+    }else if(t==141){
+      money-=2e62
+      price=5e62 //8:2
+    }else if(t==142){
+      money-=5e62
+      price=5e63 //U2
+    }else if(t==143){
+      money-=5e63
+      price=1e64 //1:3
+    }else if(t==144){
+      money-=1e64
+      price=2e64 //2:3
+    }else if(t==145){
+      money-=2e64
+      price=5e64 //3:3
+    }else if(t==146){
+      money-=5e64
+      price=1e65 //4:3
+    }else if(t==147){
+      money-=1e65
+      price=3e65 //5:3
+    }else if(t==148){
+      money-=3e65
+      price=7e65 //6:3
+    }else if(t==149){
+      money-=7e65
+      price=2e66 //7:3
+    }else if(t==150){
+      money-=2e66
+      price=5e66 //8:3
+    }else if(t==151){
+      money-=5e66
+      price=7e67 //U3
+    }else if(t==152){
+      money-=7e67
+      price=2e68 //1:4
+    }else if(t==153){
+      money-=2e68
+      price=5e68 //2:4
+    }else if(t==154){
+      money-=5e68
+      price=1e69 //3:4
+    }else if(t==155){
+      money-=1e69
+      price=3e69 //4:4
+    }else if(t==156){
+      money-=3e69
+      price=7e69 //1:1
+    }else if(t==157){
+      money-=7e69
+      price=2e70 //2:1
+    }else if(t==158){
+      money-=2e70
+      price=5e70 //3:1
+    }else if(t==159){
+      money-=5e70
+      price=1e71 //4:1
+    }else if(t==160){
+      money-=1e71
+      price=2e71 //5:1
+    }else if(t==161){
+      money-=2e71
+      price=5e71 //6:1
+    }else if(t==162){
+      money-=5e71
+      price=1e72 //7:1
+    }else if(t==163){
+      money-=1e72
+      price=2e72 //8:1
+    }else if(t==164){
+      money-=2e72
+      price=2e73 //U:1
+    }else if(t==165){
+      money-=2e73
+      price=5e73 //1:2
+    }else if(t==166){
+      money-=5e73
+      price=1e74 //2:2
+    }else if(t==167){
+      money-=1e74
+      price=2e74 //3:2
+    }else if(t==168){
+      money-=2e74
+      price=5e74 //4:2
+    }else if(t==169){
+      money-=5e74
+      price=1e75 //5:2
+    }else if(t==170){
+      money-=1e75
+      price=2e75 //6:2
+    }else if(t==171){
+      money-=2e75
+      price=4e75 //7:2
+    }else if(t==172){
+      money-=4e75
+      price=1e76 //8:2
+    }else if(t==173){
+      money-=1e76
+      price=4e76 //U:2
+    }else if(t==174){
+      money-=4e76
+      price=1e77 //1:3
+    }else if(t==175){
+      money-=1e77
+      price=2e77 //2:3
+    }else if(t==176){
+      money-=2e77
+      price=4e77 //3:3
+    }else if(t==177){
+      money-=4e77
+      price=1e78 //4:3
+    }else if(t==178){
+      money-=1e78
+      price=2e78 //5:3
+    }else if(t==179){
+      money-=2e78
+      price=5e78 //6:3
+    }else if(t==180){
+      money-=5e78
+      price=1e79 //7:3
+    }else if(t==181){
+      money-=1e79
+      price=2e79 //8:3
+    }else if(t==182){
+      money-=2e79
+      price=2e80 //U:3
+    }else if(t==183){
+      money-=2e80
+      price=4e80 //6:3
+    }else if(t==184){
+      money-=4e80
+      price=1e81 //7:3
+    }else if(t==185){
+      money-=1e81
+      price=2e81 //8:3
+    }else if(t==186){
+      money-=2e81
+      price=0
+    }
+    price0.innerHTML="Upgrade $"+strpow10(log10(price)+rebirth*(log10(2)+80))
+    buyprog.max=price
+    }else{
+      alert("You need $"+strpow10(log10(price-money)+rebirth*(log10(2)+80))+" more money")
+    }
+  }
+}
+var y=0;//1
+var y0=0;
+for (let j = 1; j <= 166; j++) {
+  if(j<=24){
+    window[`y${j}`] = 30 * Math.floor((j+1)/2) + 60 * Math.floor((j+1)/8)
+  }else
+  if(j<=52){
+    window[`y${j}`] = 30 * Math.floor((j-25)/2) + 60 * Math.floor((j-25)/8)
+  }else
+  if(j<=80){
+    window[`y${j}`] = 30 * Math.floor((j-53)/2) + 60 * Math.floor((j-53)/8)
+  }else
+  if(j<=108){
+    window[`y${j}`] = 30 * Math.floor((j-81)/2) + 60 * Math.floor((j-81)/8)
+  }else
+  if(j<=136){
+    window[`y${j}`] = 30 * Math.floor((j-109)/2) + 60 * Math.floor((j-109)/8)
+  }else
+  if(j<=164){
+    window[`y${j}`] = 30 * Math.floor((j-137)/2) + 60 * Math.floor((j-137)/8)
+  }else
+  if(j<=192){
+    window[`y${j}`] = 30 * Math.floor((j-165)/2) + 60 * Math.floor((j-165)/8)
+  }
+}
+var y193 = 420;
+var x139 = 540;
+var y194 = 180;
+var x140 = 630;
+var y195 = 180;
+var x141 = 660;
+var xf2 = 540;
+var yf2 = 210;
+for(let k = 1; k <= 138 ; k++) { 
+    window[`x${k}`] = 150 + 30 * ((k+1) % 2) + 120 * Math.floor((k+1)/28)
+}
+var x=150;
+var x0=180;
+var constant=1
+function control(){
+  if(t>=9){
+    constant=3+7*Math.random()
+  }
+  if(t>=18){
+      constant2=5+15*Math.random()
+  }
+  if(t>=27){
+    constant3=4+11*Math.random()
+  }
+  if(t>=40){
+    constant4=4+16*Math.random()
+  }
+  if(t>=49){
+    constant5=4+10*Math.random()
+  }
+  if(t>=58){
+    constant6=2+5*Math.random()
+  }
+  if(t>=71){
+    constant7=4+10*Math.random()
+  }
+  if(t>=80){
+    constant8=3+7*Math.random()
+  }
+  if(t>=89){
+    constant9=3+4*Math.random()
+  }
+  if(t>=102){
+    constant10=6+8*Math.random()
+  }
+  if(t>=111){
+    constant11=8+12*Math.random()
+  }
+  if(t>=120){
+    constant12=4+6*Math.random()
+  }
+  if(t>=133){
+    constant13=5+8*Math.random()
+  }
+  if(t>=142){
+    constant14=6+7*Math.random()
+  }
+  if(t>=151){
+    constant15=8+10*Math.random()
+  }
+  if(t>=164){
+    constant16=5+6*Math.random()
+  }
+  if(t>=173){
+    constant17=2+4*Math.random()
+  }
+  if(t>=182){
+    constant18=5+10*Math.random()
+  }
+}
+function reb(){
+  if(money>=2.5e81){
+    money=0
+    t=0
+     r = 255* Math.random();
+ g = 255* Math.random();
+ b = 255* Math.random();
+for (let i = 0; i <= 119; i++) {
+    window[`r${i}`] = 255 * Math.random();
+    window[`g${i}`] = 255 * Math.random();
+    window[`b${i}`] = 255 * Math.random();
+}
+for (let l = 2; l <= 18; l++){
+  window[`constant${l}`]=1;
+}
+constant1=1;
+fill('grey')
+  rect(0,0,720,window.innerHeight)
+  fill("black");
+  rect(30,0,60,600);
+  rect(150,0,60,600);
+  rect(270,0,60,600);
+  rect(390,0,60,600);
+  rect(510,0,60,600);
+  rect(630,0,60,600);
+  rect(90,600,600,60);
+  fill("orange");
+  rect(30,600,60,60)
+  rebirth++
+  price1.innerHTML=strpow10(log10(2.5e81)+rebirth*(log10(2)+80))
+  y193 = 420;
+x139 = 540;
+y194 = 180;
+x140 = 630;
+y195 = 180;
+x141 = 660;
+y=0
+y0=0
+x=150;
+x0=180
+  }else{
+      alert("You need $"+strpow10(log10(2.5e81-money)+rebirth*(log10(2)+80))+" more money")
+  }
+}
+setInterval(function(){
+  fill('grey')
+  rect(0,0,window.innerWidth,window.innerHeight)
+  fill("black");
+  rect(30,0,60,600);
+  rect(150,0,60,600);
+  rect(270,0,60,600);
+  rect(390,0,60,600);
+  rect(510,0,60,600);
+  rect(630,0,60,600);
+  rect(90,600,600,60);
+  fill("orange");
+  rect(30,600,60,60)
+  if(t>=1){
+    fill("rgb("+r+","+g+","+b+")")
+    rect(30,y,30,30)
+    if(y>=570){
+      y=0;
+      control();
+      money+=constant*constant2*constant3*(0.5+Math.random())
+    }else{
+      y+=3;
+    }
+  }
+  if(t>=2){
+    fill("rgb("+r+","+g+","+b+")")
+    rect(60,y0,30,30)
+    if(y0>=570){
+      y0=0;
+      control();
+      money+=constant*constant2*constant3*(0.5+Math.random())
+    }else{
+      y0+=3;
+    }
+  }
+  if(t>=3){
+    fill("rgb("+r5+","+g5+","+b5+")")
+    rect(30,y1,30,30)
+    if(y1>=570){
+      y1=30;
+      control()
+      money+=constant*3*constant2*constant3*(0.5+Math.random())
+    }else{
+      y1+=3;
+    }
+  }
+  if(t>=4){
+    fill("rgb("+r5+","+g5+","+b5+")")
+    rect(60,y2,30,30)
+    if(y2>=570){
+      y2=30;
+      control()
+      money+=constant*3*constant2*constant3*(0.5+Math.random())
+    }else{
+      y2+=3;
+    }
+  }
+  if(t>=5){
+    fill(rgbr(1))
+    rect(30,y3,30,30)
+    if(y3>=570){
+      y3=60;
+      control()
+      money+=constant*10*constant2*constant3*(0.5+Math.random())
+    }else{
+      y3+=3;
+    }
+  }
+  if(t>=6){
+    fill("rgb("+r1+","+g1+","+b1+")")
+    rect(60,y4,30,30)
+    if(y4>=570){
+      y4=60;
+      control()
+      money+=constant*10*constant2*constant3*(0.5+Math.random())
+    }else{
+      y4+=3;
+    }
+  }
+  if(t>=7){
+    fill("rgb("+r2+","+g2+","+b2+")")
+    rect(30,y5,30,30)
+    if(y5>=570){
+      y5=90;
+      control()
+      money+=constant*50*constant2*constant3*(0.5+Math.random())
+    }else{
+      y5+=3;
+    }
+  }
+  if(t>=8){
+    fill("rgb("+r2+","+g2+","+b2+")")
+    rect(60,y6,30,30)
+    if(y6>=570){
+      y6=90;
+      control()
+      money+=constant*50*constant2*constant3*(0.5+Math.random())
+    }else{
+      y6+=3;
+    }
+  }
+  if(t>=10){
+    fill("rgb("+r6+","+g6+","+b6+")")
+    rect(30,y7,30,30)
+    if(y7>=570){
+      y7=180;
+      control()
+      money+=constant2*constant3*750*(0.5+Math.random())
+    }else{
+      y7+=3;
+    }
+  }
+  if(t>=11){
+    fill("rgb("+r6+","+g6+","+b6+")")
+    rect(60,y8,30,30)
+    if(y8>=570){
+      y8=180;
+      control()
+      money+=constant2*constant3*750*(0.5+Math.random())
+    }else{
+      y8+=3;
+    }
+  }
+  if(t>=12){
+    fill("rgb("+r7+","+g7+","+b7+")")
+    rect(30,y9,30,30)
+    if(y9>=570){
+      y9=210;
+      control()
+      money+=constant2*constant3*3e3*(0.5+Math.random())
+    }else{
+      y9+=3;
+    }
+  }
+  if(t>=13){
+    fill("rgb("+r7+","+g7+","+b7+")")
+    rect(60,y10,30,30)
+    if(y10>=570){
+      y10=210;
+      control()
+      money+=constant2*constant3*3e3*(0.5+Math.random())
+    }else{
+      y10+=3;
+    }
+  }
+  if(t>=14){
+    fill("rgb("+r8+","+g8+","+b8+")")
+    rect(30,y11,30,30)
+    if(y11>=570){
+      y11=240;
+      control()
+      money+=constant2*constant3*1e4*(0.5+Math.random())
+    }else{
+      y11+=3;
+    }
+  }
+  if(t>=15){
+    fill("rgb("+r8+","+g8+","+b8+")")
+    rect(60,y12,30,30)
+    if(y12>=570){
+      y12=240;
+      control()
+      money+=constant2*constant3*1e4*(0.5+Math.random())
+    }else{
+      y12+=3;
+    }
+  }
+  if(t>=16){
+    fill("rgb("+r9+","+g9+","+b9+")")
+    rect(30,y13,30,30)
+    if(y13>=570){
+      y13=270;
+      control()
+      money+=constant2*constant3*6e4*(0.5+Math.random())
+    }else{
+      y13+=3;
+    }
+  }
+  if(t>=17){
+    fill("rgb("+r9+","+g9+","+b9+")")
+    rect(60,y14,30,30)
+    if(y14>=570){
+      y14=270;
+      control()
+      money+=constant2*constant3*6e4*(0.5+Math.random())
+    }else{
+      y14+=3;
+    }
+  }
+  if(t>=19){
+    fill("rgb("+r12+","+g12+","+b12+")")
+    rect(30,y15,30,30)
+    if(y15>=570){
+      y15=360;
+      control()
+      money+=5e6*constant3*(0.5+Math.random())
+    }else{
+      y15+=3;
+    }
+  }
+  if(t>=20){
+    fill("rgb("+r12+","+g12+","+b12+")")
+    rect(60,y16,30,30)
+    if(y16>=570){
+      y16=360;
+      control()
+      money+=5e6*constant3*(0.5+Math.random())
+    }else{
+      y16+=3;
+    }
+  }
+  if(t>=21){
+    fill("rgb("+r13+","+g13+","+b13+")")
+    rect(30,y17,30,30)
+    if(y17>=570){
+      y17=390;
+      control()
+      money+=2e7*constant3*(0.5+Math.random())
+    }else{
+      y17+=3;
+    }
+  }
+  if(t>=22){
+    fill("rgb("+r13+","+g13+","+b13+")")
+    rect(60,y18,30,30)
+    if(y18>=570){
+      y18=390;
+      control()
+      money+=2e7*constant3*(0.5+Math.random())
+    }else{
+      y18+=3;
+    }
+  }
+  if(t>=23){
+    fill("rgb("+r14+","+g14+","+b14+")")
+    rect(30,y19,30,30)
+    if(y19>=570){
+      y19=420;
+      control()
+      money+=1e8*constant3*(0.5+Math.random())
+    }else{
+      y19+=3;
+    }
+  }
+  if(t>=24){
+    fill("rgb("+r14+","+g14+","+b14+")")
+    rect(60,y20,30,30)
+    if(y20>=570){
+      y20=420;
+      control()
+      money+=1e8*constant3*(0.5+Math.random())
+    }else{
+      y20+=3;
+    }
+  }
+  if(t>=25){
+    fill("rgb("+r15+","+g15+","+b15+")")
+    rect(30,y21,30,30)
+    if(y21>=570){
+      y21=450;
+      control()
+      money+=4e8*constant3*(0.5+Math.random())
+    }else{
+      y21+=3;
+    }
+  }
+  if(t>=26){
+    fill("rgb("+r15+","+g15+","+b15+")")
+    rect(60,y22,30,30)
+    if(y22>=570){
+      y22=450;
+      control()
+      money+=4e8*constant3*(0.5+Math.random())
+    }else{
+      y22+=3;
+    }
+  }
+    if(t>=28){
+    fill("rgb("+r18+","+g18+","+b18+")")
+    rect(30,y23,30,30)
+    if(y23>=570){
+      y23=540;
+      control()
+      money+=2e10*(0.5+Math.random())
+    }else{
+      y23+=3;
+    }
+  }
+    if(t>=29){
+    fill("rgb("+r18+","+g18+","+b18+")")
+    rect(60,y24,30,30)
+    if(y24>=570){
+      y24=540;
+      control()
+      money+=2e10*(0.5+Math.random())
+    }else{
+      y24+=3;
+    }
+  }
+  if(t>=30){
+    fill("rgb("+r19+","+g19+","+b19+")")
+    money+=1e10*(0.5+Math.random())
+  }
+  if(t>=31){
+    fill("rgb("+r19+","+g19+","+b19+")")
+    money+=1e10*(0.5+Math.random())
+  }
+  if(t>=32){
+    fill("rgb("+r20+","+g20+","+b20+")")
+    rect(x,y25,30,30)
+    if(x<90 && y25>=600){
+        y25=0
+        x=150
+        control()
+        money+=1.2e13*constant4*constant5*constant6*(0.5+Math.random())//1
+    }else{
+        if(y25<=600){
+            y25+=3;
+        }else{
+            x-=3;
+        }
+    }
+  }
+  if(t>=33){
+    fill("rgb("+r20+","+g20+","+b20+")")
+    rect(x0,y26,30,30)
+    if(x0<90 && y26>=600){
+        y26=0
+        x0=180
+        control()
+        money+=1.2e13*constant4*constant5*constant6*(0.5+Math.random())//2
+    }else{
+        if(y26<=600){
+            y26+=3;
+        }else{
+            x0-=3;
+        }
+    }
+  }
+    if(t>=34){
+    fill("rgb("+r21+","+g21+","+b21+")")
+    rect(x1,y27,30,30)
+    if(x1<90 && y27>=600){
+        y27=30
+        x1=150
+        control()
+        money+=6e13*constant4*constant5*constant6*(0.5+Math.random())//3
+    }else{
+        if(y27<=600){
+            y27+=3;
+        }else{
+            x1-=3;
+        }
+    }
+  }
+    if(t>=35){
+    fill("rgb("+r21+","+g21+","+b21+")")
+    rect(x2,y28,30,30)
+    if(x2<90 && y28>=600){
+        y28=30
+        x2=180
+        control()
+        money+=6e13*constant4*constant5*constant6*(0.5+Math.random())//4
+    }else{
+        if(y28<=600){
+            y28+=3;
+        }else{
+            x2-=3;
+        }
+    }
+  }
+    if(t>=36){
+    fill("rgb("+r22+","+g22+","+b22+")")
+    rect(x3,y29,30,30)
+    if(x3<90 && y29>=600){
+        y29=60
+        x3=150
+        control()
+        money+=5e14*constant4*constant5*constant6*(0.5+Math.random())//5
+    }else{
+        if(y29<=600){
+            y29+=3;
+        }else{
+            x3-=3;
+        }
+    }
+  }
+    if(t>=37){
+    fill("rgb("+r22+","+g22+","+b22+")")
+    rect(x4,y30,30,30)
+    if(x4<90 && y30>=600){
+        y30=60
+        x4=180
+        control()
+        money+=5e14*constant4*constant5*constant6*(0.5+Math.random())//6
+    }else{
+        if(y30<=600){
+            y30+=3;
+        }else{
+            x4-=3;
+        }
+    }
+  }
+if(t>=38){
+    fill("rgb("+r23+","+g23+","+b23+")")
+    rect(x5,y31,30,30)
+    if(x5<90 && y31>=600){
+        y31=90
+        x5=150
+        control()
+        money+=2e15*constant4*constant5*constant6*(0.5+Math.random())//7
+    }else{
+        if(y31<=600){
+            y31+=3;
+        }else{
+            x5-=3;
+        }
+    }
+  }
+if(t>=39){
+    fill("rgb("+r23+","+g23+","+b23+")")
+    rect(x6,y32,30,30)
+    if(x6<90 && y32>=600){
+        y32=90
+        x6=180
+        control()
+        money+=2e15*constant4*constant5*constant6*(0.5+Math.random())//8
+    }else{
+        if(y32<=600){
+            y32+=3;
+        }else{
+            x6-=3;
+        }
+    }
+  }
+if(t>=41){
+    fill("rgb("+r26+","+g26+","+b26+")")
+    rect(x7,y33,30,30)
+    if(x7<90 && y33>=600){
+        y33=180
+        x7=150
+        control()
+        money+=5e16*constant5*constant6*(0.5+Math.random())//1
+    }else{
+        if(y33<=600){
+            y33+=3;
+        }else{
+            x7-=3;
+        }
+    }
+  }
+if(t>=42){
+    fill("rgb("+r26+","+g26+","+b26+")")
+    rect(x8,y34,30,30)
+    if(x8<90 && y34>=600){
+        y34=180
+        x8=180
+        control()
+        money+=5e16*constant5*constant6*(0.5+Math.random())//2
+    }else{
+        if(y34<=600){
+            y34+=3;
+        }else{
+            x8-=3;
+        }
+    }
+  }
+if(t>=43){
+    fill("rgb("+r27+","+g27+","+b27+")")
+    rect(x9,y35,30,30)
+    if(x9<90 && y35>=600){
+        y35=210
+        x9=150
+        control()
+        money+=3e17*constant5*constant6*(0.5+Math.random())//3
+    }else{
+        if(y35<=600){
+            y35+=3;
+        }else{
+            x9-=3;
+        }
+    }
+  }
+if(t>=44){
+    fill("rgb("+r27+","+g27+","+b27+")")
+    rect(x10,y36,30,30)
+    if(x10<90 && y36>=600){
+        y36=210
+        x10=180
+        control()
+        money+=3e17*constant5*constant6*(0.5+Math.random())//4
+    }else{
+        if(y36<=600){
+            y36+=3;
+        }else{
+            x10-=3;
+        }
+    }
+  }
+if(t>=45){
+    fill("rgb("+r28+","+g28+","+b28+")")
+    rect(x11,y37,30,30)
+    if(x11<90 && y37>=600){
+        y37=240
+        x11=150
+        control()
+        money+=1e18*constant5*constant6*(0.5+Math.random())//5
+    }else{
+        if(y37<=600){
+            y37+=3;
+        }else{
+            x11-=3;
+        }
+    }
+  }
+if(t>=46){
+    fill("rgb("+r28+","+g28+","+b28+")")
+    rect(x12,y38,30,30)
+    if(x12<90 && y38>=600){
+        y38=240
+        x12=180
+        control()
+        money+=1e18*constant5*constant6*(0.5+Math.random())//6
+    }else{
+        if(y38<=600){
+            y38+=3;
+        }else{
+            x12-=3;
+        }
+    }
+  }
+if(t>=47){
+    fill("rgb("+r29+","+g29+","+b29+")")
+    rect(x13,y39,30,30)
+    if(x13<90 && y39>=600){
+        y39=270
+        x13=150
+        control()
+        money+=7e18*constant5*constant6*(0.5+Math.random())//7
+    }else{
+        if(y39<=600){
+            y39+=3;
+        }else{
+            x13-=3;
+        }
+    }
+  }
+if(t>=48){
+    fill("rgb("+r29+","+g29+","+b29+")")
+    rect(x14,y40,30,30)
+    if(x14<90 && y40>=600){
+        y40=270
+        x14=180
+        control()
+        money+=7e18*constant5*constant6*(0.5+Math.random())//8
+    }else{
+        if(y40<=600){
+            y40+=3;
+        }else{
+            x14-=3;
+        }
+    }
+  }
+  if(t>=50){
+    fill("rgb("+r32+","+g32+","+b32+")")
+    rect(x15,y41,30,30)
+    if(x15<90 && y41>=600){
+        y41=360
+        x15=150
+        control()
+        money+=3e20*constant6*(0.5+Math.random())//7
+    }else{
+        if(y41<=600){
+            y41+=3;
+        }else{
+            x15-=3;
+        }
+    }
+  }
+if(t>=51){
+    fill("rgb("+r32+","+g32+","+b32+")")
+    rect(x16,y42,30,30)
+    if(x16<90 && y42>=600){
+        y42=360
+        x16=180
+        control()
+        money+=3e20*constant6*(0.5+Math.random())//8
+    }else{
+        if(y42<=600){
+            y42+=3;
+        }else{
+            x16-=3;
+        }
+    }
+  }
+  if(t>=52){
+    fill("rgb("+r33+","+g33+","+b33+")")
+    rect(x17,y43,30,30)
+    if(x17<90 && y43>=600){
+        y43=390
+        x17=150
+        control()
+        money+=2e21*constant6*(0.5+Math.random())//7
+    }else{
+        if(y43<=600){
+            y43+=3;
+        }else{
+            x17-=3;
+        }
+    }
+  }
+if(t>=53){
+    fill("rgb("+r33+","+g33+","+b33+")")
+    rect(x18,y44,30,30)
+    if(x18<90 && y44>=600){
+        y44=390
+        x18=180
+        control()
+        money+=2e21*constant6*(0.5+Math.random())//8
+    }else{
+        if(y44<=600){
+            y44+=3;
+        }else{
+            x18-=3;
+        }
+    }
+  }
+  if(t>=54){
+    fill("rgb("+r34+","+g34+","+b34+")")
+    rect(x19,y45,30,30)
+    if(x19<90 && y45>=600){
+        y45=420
+        x19=150
+        control()
+        money+=1e22*constant6*(0.5+Math.random())//7
+    }else{
+        if(y45<=600){
+            y45+=3;
+        }else{
+            x19-=3;
+        }
+    }
+  }
+if(t>=55){
+    fill("rgb("+r34+","+g34+","+b34+")")
+    rect(x20,y46,30,30)
+    if(x20<90 && y46>=600){
+        y46=420
+        x20=180
+        control()
+        money+=1e22*constant6*(0.5+Math.random())//8
+    }else{
+        if(y46<=600){
+            y46+=3;
+        }else{
+            x20-=3;
+        }
+    }
+  }
+  if(t>=56){
+    fill("rgb("+r35+","+g35+","+b35+")")
+    rect(x21,y47,30,30)
+    if(x21<90 && y47>=600){
+        y47=450
+        x21=150
+        control()
+        money+=5e22*constant6*(0.5+Math.random())//7
+    }else{
+        if(y47<=600){
+            y47+=3;
+        }else{
+            x21-=3;
+        }
+    }
+  }
+if(t>=57){
+    fill("rgb("+r35+","+g35+","+b35+")")
+    rect(x22,y48,30,30)
+    if(x22<90 && y48>=600){
+        y48=450
+        x22=180
+        control()
+        money+=5e22*constant6*(0.5+Math.random())//8
+    }else{
+        if(y48<=600){
+            y48+=3;
+        }else{
+            x22-=3;
+        }
+    }
+  }
+  if(t>=59){
+    fill("rgb("+r38+","+g38+","+b38+")")
+    rect(x23,y49,30,30)
+    if(x23<90 && y49>=600){
+        y49=540
+        x23=150
+        control()
+        money+=3e24*constant6*(0.5+Math.random())//7
+    }else{
+        if(y49<=600){
+            y49+=3;
+        }else{
+            x23-=3;
+        }
+    }
+  }
+if(t>=60){
+    fill("rgb("+r38+","+g38+","+b38+")")
+    rect(x24,y50,30,30)
+    if(x24<90 && y50>=600){
+        y50=540
+        x24=180
+        control()
+        money+=3e24*constant6*(0.5+Math.random())//8
+    }else{
+        if(y50<=600){
+            y50+=3;
+        }else{
+            x24-=3;
+        }
+    }
+  }
+  if(t>=61){
+    fill("rgb("+r39+","+g39+","+b39+")")
+    rect(x25,y51,30,30)
+    if(x25<90 && y51>=600){
+        y51=570
+        x25=150
+        control()
+        money+=2e25*constant6*(0.5+Math.random())//7
+    }else{
+        if(y51<=600){
+            y51+=3;
+        }else{
+            x25-=3;
+        }
+    }
+  }
+if(t>=62){
+    fill("rgb("+r39+","+g39+","+b39+")")
+    rect(x26,y52,30,30)
+    if(x26<90 && y52>=600){
+        y52=570
+        x26=180
+        control()
+        money+=2e25*constant6*(0.5+Math.random())//8
+    }else{
+        if(y52<=600){
+            y52+=3;
+        }else{
+            x26-=3;
+        }
+    }
+  }
+if(t>=63){
+    fill("rgb("+r40+","+g40+","+b40+")")
+    rect(x27,y53,30,30)
+    if(x27<90 && y53>=600){
+        y53=0
+        x27=270
+        control()
+        money+=1.5e26*constant7*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y53<=600){
+            y53+=3;
+        }else{
+            x27-=3;
+        }
+    }
+  }
+    if(t>=64){
+    fill("rgb("+r40+","+g40+","+b40+")")
+    rect(x28,y54,30,30)
+    if(x28<90 && y54>=600){
+        y54=0
+        x28=300
+        control()
+        money+=1.5e26*constant7*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y54<=600){
+            y54+=3;
+        }else{
+            x28-=3;
+        }
+    }
+  }
+    if(t>=65){
+    fill("rgb("+r41+","+g41+","+b41+")")
+    rect(x29,y55,30,30)
+    if(x29<90 && y55>=600){
+        y55=30
+        x29=270
+        control()
+        money+=1e27*constant7*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y55<=600){
+            y55+=3;
+        }else{
+            x29-=3;
+        }
+    }
+  }
+    if(t>=66){
+    fill("rgb("+r41+","+g41+","+b41+")")
+    rect(x30,y56,30,30)
+    if(x30<90 && y56>=600){
+        y56=30
+        x30=300
+        control()
+        money+=1e27*constant7*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y56<=600){
+            y56+=3;
+        }else{
+            x30-=3;
+        }
+    }
+  }
+  if(t>=67){
+    fill("rgb("+r42+","+g42+","+b42+")")
+    rect(x31,y57,30,30)
+    if(x31<90 && y57>=600){
+        y57=60
+        x31=270
+        control()
+        money+=5e27*constant7*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y57<=600){
+            y57+=3;
+        }else{
+            x31-=3;
+        }
+    }
+  }
+    if(t>=68){
+    fill("rgb("+r42+","+g42+","+b42+")")
+    rect(x32,y58,30,30)
+    if(x32<90 && y58>=600){
+        y58=60
+        x32=300
+        control()
+        money+=5e27*constant7*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y58<=600){
+            y58+=3;
+        }else{
+            x32-=3;
+        }
+    }
+  }
+  if(t>=69){
+    fill("rgb("+r43+","+g43+","+b43+")")
+    rect(x33,y59,30,30)
+    if(x33<90 && y59>=600){
+        y59=90
+        x33=270
+        control()
+        money+=3e28*constant7*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y59<=600){
+            y59+=3;
+        }else{
+            x33-=3;
+        }
+    }
+  }
+    if(t>=70){
+    fill("rgb("+r43+","+g43+","+b43+")")
+    rect(x34,y60,30,30)
+    if(x34<90 && y60>=600){
+        y60=90
+        x34=300
+        control()
+        money+=3e28*constant7*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y60<=600){
+            y60+=3;
+        }else{
+            x34-=3;
+        }
+    }
+  }
+  if(t>=72){
+    fill("rgb("+r46+","+g46+","+b46+")")
+    rect(x35,y61,30,30)
+    if(x35<90 && y61>=600){
+        y61=180
+        x35=270
+        control()
+        money+=2e30*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y61<=600){
+            y61+=3;
+        }else{
+            x35-=3;
+        }
+    }
+  }
+    if(t>=73){
+    fill("rgb("+r46+","+g46+","+b46+")")
+    rect(x36,y62,30,30)
+    if(x36<90 && y62>=600){
+        y62=180
+        x36=300
+        control()
+        money+=2e30*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y62<=600){
+            y62+=3;
+        }else{
+            x36-=3;
+        }
+    }
+  }
+  if(t>=74){
+    fill("rgb("+r47+","+g47+","+b47+")")
+    rect(x37,y63,30,30)
+    if(x37<90 && y63>=600){
+        y63=210
+        x37=270
+        control()
+        money+=2e31*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y63<=600){
+            y63+=3;
+        }else{
+            x37-=3;
+        }
+    }
+  }
+    if(t>=75){
+    fill("rgb("+r47+","+g47+","+b47+")")
+    rect(x38,y64,30,30)
+    if(x38<90 && y64>=600){
+        y64=210
+        x38=300
+        control()
+        money+=2e31*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y64<=600){
+            y64+=3;
+        }else{
+            x38-=3;
+        }
+    }
+  }
+  if(t>=76){
+    fill("rgb("+r48+","+g48+","+b48+")")
+    rect(x39,y65,30,30)
+    if(x39<90 && y65>=600){
+        y65=240
+        x39=270
+        control()
+        money+=1e32*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y65<=600){
+            y65+=3;
+        }else{
+            x39-=3;
+        }
+    }
+  }
+    if(t>=77){
+    fill("rgb("+r48+","+g48+","+b48+")")
+    rect(x40,y66,30,30)
+    if(x40<90 && y66>=600){
+        y66=240
+        x40=300
+        control()
+        money+=1e32*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y66<=600){
+            y66+=3;
+        }else{
+            x40-=3;
+        }
+    }
+  }
+  if(t>=78){
+    fill("rgb("+r49+","+g49+","+b49+")")
+    rect(x41,y67,30,30)
+    if(x41<90 && y67>=600){
+        y67=270
+        x41=270
+        control()
+        money+=1e33*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y67<=600){
+            y67+=3;
+        }else{
+            x41-=3;
+        }
+    }
+  }
+    if(t>=79){
+    fill("rgb("+r49+","+g49+","+b49+")")
+    rect(x42,y68,30,30)
+    if(x42<90 && y68>=600){
+        y68=270
+        x42=300
+        control()
+        money+=1e33*constant8*constant9*(0.5+Math.random())//7
+    }else{
+        if(y68<=600){
+            y68+=3;
+        }else{
+            x42-=3;
+        }
+    }
+  }
+  if(t>=81){
+    fill(rgbr(52))
+    rect(x43,y69,30,30)
+    if(x43<90 && y69>=600){
+        y69=360
+        x43=270
+        control()
+        money+=4e34*constant9*(0.5+Math.random())//7
+    }else{
+        if(y69<=600){
+            y69+=3;
+        }else{
+            x43-=3;
+        }
+    }
+  }
+    if(t>=82){
+    fill(rgbr(52))
+    rect(x44,y70,30,30)
+    if(x44<90 && y70>=600){
+        y70=360
+        x44=300
+        control()
+        money+=4e34*constant9*(0.5+Math.random())//7
+    }else{
+        if(y70<=600){
+            y70+=3;
+        }else{
+            x44-=3;
+        }
+    }
+  }
+  if(t>=83){
+    fill(rgbr(53))
+    rect(x45,y71,30,30)
+    if(x45<90 && y71>=600){
+        y71=390
+        x45=270
+        control()
+        money+=3e35*constant9*(0.5+Math.random())//7
+    }else{
+        if(y71<=600){
+            y71+=3;
+        }else{
+            x45-=3;
+        }
+    }
+  }
+    if(t>=84){
+    fill(rgbr(53))
+    rect(x46,y72,30,30)
+    if(x46<90 && y72>=600){
+        y72=390
+        x46=300
+        control()
+        money+=3e35*constant9*(0.5+Math.random())//7
+    }else{
+        if(y72<=600){
+            y72+=3;
+        }else{
+            x46-=3;
+        }
+    }
+  }
+  if(t>=85){
+    fill(rgbr(54))
+    rect(x47,y73,30,30)
+    if(x47<90 && y73>=600){
+        y73=420
+        x47=270
+        control()
+        money+=1e36*constant9*(0.5+Math.random())//7
+    }else{
+        if(y73<=600){
+            y73+=3;
+        }else{
+            x47-=3;
+        }
+    }
+  }
+    if(t>=86){
+    fill(rgbr(54))
+    rect(x48,y74,30,30)
+    if(x48<90 && y74>=600){
+        y74=420
+        x48=300
+        control()
+        money+=1e36*constant9*(0.5+Math.random())//7
+    }else{
+        if(y74<=600){
+            y74+=3;
+        }else{
+            x48-=3;
+        }
+    }
+  }
+  if(t>=87){
+    fill(rgbr(55))
+    rect(x49,y75,30,30)
+    if(x49<90 && y75>=600){
+        y75=450
+        x49=270
+        control()
+        money+=5e36*constant9*(0.5+Math.random())//7
+    }else{
+        if(y75<=600){
+            y75+=3;
+        }else{
+            x49-=3;
+        }
+    }
+  }
+    if(t>=88){
+    fill(rgbr(55))
+    rect(x50,y76,30,30)
+    if(x50<90 && y76>=600){
+        y76=450
+        x50=300
+        control()
+        money+=5e36*constant9*(0.5+Math.random())//7
+    }else{
+        if(y76<=600){
+            y76+=3;
+        }else{
+            x50-=3;
+        }
+    }
+  }
+  if(t>=90){
+    fill(rgbr(58))
+    rect(x51,y77,30,30)
+    if(x51<90 && y77>=600){
+        y77=540
+        x51=270
+        control()
+        money+=2e38*(0.5+Math.random())//7
+    }else{
+        if(y77<=600){
+            y77+=3;
+        }else{
+            x51-=3;
+        }
+    }
+  }
+    if(t>=91){
+    fill(rgbr(58))
+    rect(x52,y78,30,30)
+    if(x52<90 && y78>=600){
+        y78=540
+        x52=300
+        control()
+        money+=2e38*(0.5+Math.random())//7
+    }else{
+        if(y78<=600){
+            y78+=3;
+        }else{
+            x52-=3;
+        }
+    }
+  }
+  if(t>=92){
+    fill(rgbr(59))
+    rect(x53,y79,30,30)
+    if(x53<90 && y79>=600){
+        y79=570
+        x53=270
+        control()
+        money+=2e39*(0.5+Math.random())//7
+    }else{
+        if(y79<=600){
+            y79+=3;
+        }else{
+            x53-=3;
+        }
+    }
+  }
+    if(t>=93){
+    fill(rgbr(59))
+    rect(x54,y80,30,30)
+    if(x54<90 && y80>=600){
+        y80=570
+        x54=300
+        control()
+        money+=2e39*(0.5+Math.random())//7
+    }else{
+        if(y80<=600){
+            y80+=3;
+        }else{
+            x54-=3;
+        }
+    }
+  }
+  if(t>=94){
+    fill(rgbr(60))
+    rect(x55,y81,30,30)
+    if(x55<90 && y81>=600){
+        y81=0
+        x55=390
+        control()
+        money+=2e40*constant10*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y81<=600){
+            y81+=3;
+        }else{
+            x55-=3;
+        }
+    }
+  }
+    if(t>=95){
+    fill(rgbr(60))
+    rect(x56,y82,30,30)
+    if(x56<90 && y82>=600){
+        y82=0
+        x56=420
+        control()
+        money+=2e40*constant10*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y82<=600){
+            y82+=3;
+        }else{
+            x56-=3;
+        }
+    }
+  }
+  if(t>=96){
+    fill(rgbr(61))
+    rect(x57,y83,30,30)
+    if(x57<90 && y83>=600){
+        y83=30
+        x57=390
+        control()
+        money+=2e41*constant10*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y83<=600){
+            y83+=3;
+        }else{
+            x57-=3;
+        }
+    }
+  }
+    if(t>=97){
+    fill(rgbr(61))
+    rect(x58,y84,30,30)
+    if(x58<90 && y84>=600){
+        y84=30
+        x58=420
+        control()
+        money+=2e41*constant10*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y84<=600){
+            y84+=3;
+        }else{
+            x58-=3;
+        }
+    }
+  }
+  if(t>=98){
+    fill(rgbr(62))
+    rect(x59,y85,30,30)
+    if(x59<90 && y85>=600){
+        y85=60
+        x59=390
+        control()
+        money+=1e42*constant10*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y85<=600){
+            y85+=3;
+        }else{
+            x59-=3;
+        }
+    }
+  }
+    if(t>=99){
+    fill(rgbr(62))
+    rect(x60,y86,30,30)
+    if(x60<90 && y86>=600){
+        y86=60
+        x60=420
+        control()
+        money+=1e42*constant10*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y86<=600){
+            y86+=3;
+        }else{
+            x60-=3;
+        }
+    }
+  }
+  if(t>=100){
+    fill(rgbr(63))
+    rect(x61,y87,30,30)
+    if(x61<90 && y87>=600){
+        y87=90
+        x61=390
+        control()
+        money+=7e42*constant10*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y87<=600){
+            y87+=3;
+        }else{
+            x61-=3;
+        }
+    }
+  }
+    if(t>=101){
+    fill(rgbr(63))
+    rect(x62,y88,30,30)
+    if(x62<90 && y88>=600){
+        y88=90
+        x62=420
+        control()
+        money+=7e42*constant10*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y88<=600){
+            y88+=3;
+        }else{
+            x62-=3;
+        }
+    }
+  }
+  if(t>=103){
+    fill(rgbr(66))
+    rect(x63,y89,30,30)
+    if(x63<90 && y89>=600){
+        y89=180
+        x63=390
+        control()
+        money+=6e44*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y89<=600){
+            y89+=3;
+        }else{
+            x63-=3;
+        }
+    }
+  }
+    if(t>=104){
+    fill(rgbr(66))
+    rect(x64,y90,30,30)
+    if(x64<90 && y90>=600){
+        y90=180
+        x64=420
+        control()
+        money+=6e44*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y90<=600){
+            y90+=3;
+        }else{
+            x64-=3;
+        }
+    }
+  }
+  if(t>=105){
+    fill(rgbr(67))
+    rect(x65,y91,30,30)
+    if(x65<90 && y91>=600){
+        y91=210
+        x65=390
+        control()
+        money+=5e45*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y91<=600){
+            y91+=3;
+        }else{
+            x65-=3;
+        }
+    }
+  }
+    if(t>=106){
+    fill(rgbr(67))
+    rect(x66,y92,30,30)
+    if(x66<90 && y92>=600){
+        y92=210
+        x66=420
+        control()
+        money+=5e45*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y92<=600){
+            y92+=3;
+        }else{
+            x66-=3;
+        }
+    }
+  }
+  if(t>=107){
+    fill(rgbr(68))
+    rect(x67,y93,30,30)
+    if(x67<90 && y93>=600){
+        y93=240
+        x67=390
+        control()
+        money+=3e46*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y93<=600){
+            y93+=3;
+        }else{
+            x67-=3;
+        }
+    }
+  }
+    if(t>=108){
+    fill(rgbr(68))
+    rect(xf1,yf1,30,30)
+    if(xf1<90 && yf1>=600){
+        yf1=240
+        xf1=420
+        control()
+        money+=3e46*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(yf1<=600){
+            yf1+=3;
+        }else{
+            xf1-=3;
+        }
+    }
+  }
+  if(t>=109){
+    fill(rgbr(69))
+    rect(x69,y95,30,30)
+    if(x69<90 && y95>=600){
+        y95=270
+        x69=390
+        control()
+        money+=2e47*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y95<=600){
+            y95+=3;
+        }else{
+            x69-=3;
+        }
+    }
+  }
+    if(t>=110){
+    fill(rgbr(69))
+    rect(x70,y96,30,30)
+    if(x70<90 && y96>=600){
+        y96=270
+        x70=420
+        control()
+        money+=2e47*constant11*constant12*(0.5+Math.random())//7
+    }else{
+        if(y96<=600){
+            y96+=3;
+        }else{
+            x70-=3;
+        }
+    }
+  }
+  if(t>=112){
+    fill(rgbr(72))
+    rect(x71,y97,30,30)
+    if(x71<90 && y97>=600){
+        y97=360
+        x71=390
+        control()
+        money+=1e49*constant12*(0.5+Math.random())//1
+    }else{
+        if(y97<=600){
+            y97+=3;
+        }else{
+            x71-=3;
+        }
+    }
+  }
+    if(t>=113){
+    fill(rgbr(72))
+    rect(x72,y98,30,30)
+    if(x72<90 && y98>=600){
+        y98=360
+        x72=420
+        control()
+        money+=1e49*constant12*(0.5+Math.random())//2
+    }else{
+        if(y98<=600){
+            y98+=3;
+        }else{
+            x72-=3;
+        }
+    }
+  }
+  if(t>=114){
+    fill(rgbr(73))
+    rect(x73,y99,30,30)
+    if(x73<90 && y99>=600){
+        y99=390
+        x73=390
+        control()
+        money+=8e49*constant12*(0.5+Math.random())//3
+    }else{
+        if(y99<=600){
+            y99+=3;
+        }else{
+            x73-=3;
+        }
+    }
+  }
+    if(t>=115){
+    fill(rgbr(73))
+    rect(x74,y100,30,30)
+    if(x74<90 && y100>=600){
+        y100=390
+        x74=420
+        control()
+        money+=8e49*constant12*(0.5+Math.random())//4
+    }else{
+        if(y100<=600){
+            y100+=3;
+        }else{
+            x74-=3;
+        }
+    }
+  }
+  if(t>=116){
+    fill(rgbr(74))
+    rect(x75,y101,30,30)
+    if(x75<90 && y101>=600){
+        y101=420
+        x75=390
+        control()
+        money+=5e50*constant12*(0.5+Math.random())//5
+    }else{
+        if(y101<=600){
+            y101+=3;
+        }else{
+            x75-=3;
+        }
+    }
+  }
+    if(t>=117){
+    fill(rgbr(74))
+    rect(x76,y102,30,30)
+    if(x76<90 && y102>=600){
+        y102=420
+        x76=420
+        control()
+        money+=5e50*constant12*(0.5+Math.random())//6
+    }else{
+        if(y102<=600){
+            y102+=3;
+        }else{
+            x76-=3;
+        }
+    }
+  }
+  if(t>=118){
+    fill(rgbr(75))
+    rect(x77,y103,30,30)
+    if(x77<90 && y103>=600){
+        y103=450
+        x77=390
+        control()
+        money+=2e51*constant12*(0.5+Math.random())//7
+    }else{
+        if(y103<=600){
+            y103+=3;
+        }else{
+            x77-=3;
+        }
+    }
+  }
+    if(t>=119){
+    fill(rgbr(75))
+    rect(x78,y104,30,30)
+    if(x78<90 && y104>=600){
+        y104=450
+        x78=420
+        control()
+        money+=2e51*constant12*(0.5+Math.random())//8
+    }else{
+        if(y104<=600){
+            y104+=3;
+        }else{
+            x78-=3;
+        }
+    }
+  }
+  if(t>=121){
+    fill(rgbr(78))
+    rect(x79,y105,30,30)
+    if(x79<90 && y105>=600){
+        y105=540
+        x79=390
+        control()
+        money+=6.5e52*(0.5+Math.random())//7
+    }else{
+        if(y105<=600){
+            y105+=3;
+        }else{
+            x79-=3;
+        }
+    }
+  }
+    if(t>=122){
+    fill(rgbr(78))
+    rect(x80,y106,30,30)
+    if(x80<90 && y106>=600){
+        y106=540
+        x80=420
+        control()
+        money+=6.5e52*(0.5+Math.random())//8
+    }else{
+        if(y106<=600){
+            y106+=3;
+        }else{
+            x80-=3;
+        }
+    }
+  }
+  if(t>=123){
+    fill(rgbr(79))
+    rect(x81,y107,30,30)
+    if(x81<90 && y107>=600){
+        y107=570
+        x81=390
+        control()
+        money+=4e53*(0.5+Math.random())//7
+    }else{
+        if(y107<=600){
+            y107+=3;
+        }else{
+            x81-=3;
+        }
+    }
+  }
+    if(t>=124){
+    fill(rgbr(79))
+    rect(x82,y108,30,30)
+    if(x82<90 && y108>=600){
+        y108=570
+        x82=420
+        control()
+        money+=4e53*(0.5+Math.random())//8
+    }else{
+        if(y108<=600){
+            y108+=3;
+        }else{
+            x82-=3;
+        }
+    }
+  }
+  if(t>=125){
+    fill(rgbr(80))
+    rect(x83,y109,30,30)
+    if(x83<90 && y109>=600){
+        y109=0
+        x83=510
+        control()
+        money+=1e55*constant13*constant14*constant15*(0.5+Math.random())//1
+    }else{
+        if(y109<=600){
+            y109+=3;
+        }else{
+            x83-=3;
+        }
+    }
+  }
+    if(t>=126){
+    fill(rgbr(80))
+    rect(x84,y110,30,30)
+    if(x84<90 && y110>=600){
+        y110=0
+        x84=540
+        control()
+        money+=1e55*constant13*constant14*constant15*(0.5+Math.random())//2
+    }else{
+        if(y110<=600){
+            y110+=3;
+        }else{
+            x84-=3;
+        }
+    }
+  }
+  if(t>=127){
+    fill(rgbr(81))
+    rect(x85,y111,30,30)
+    if(x85<90 && y111>=600){
+        y111=30
+        x85=510
+        control()
+        money+=7e55*constant13*constant14*constant15*(0.5+Math.random())//3
+    }else{
+        if(y111<=600){
+            y111+=3;
+        }else{
+            x85-=3;
+        }
+    }
+  }
+    if(t>=128){
+    fill(rgbr(81))
+    rect(x86,y112,30,30)
+    if(x86<90 && y112>=600){
+        y112=30
+        x86=540
+        control()
+        money+=7e55*constant13*constant14*constant15*(0.5+Math.random())//4
+    }else{
+        if(y112<=600){
+            y112+=3;
+        }else{
+            x86-=3;
+        }
+    }
+  }
+  if(t>=129){
+    fill(rgbr(82))
+    rect(x87,y113,30,30)
+    if(x87<90 && y113>=600){
+        y111=60
+        x87=510
+        control()
+        money+=3e56*constant13*constant14*constant15*(0.5+Math.random())//5
+    }else{
+        if(y113<=600){
+            y113+=3;
+        }else{
+            x87-=3;
+        }
+    }
+  }
+    if(t>=130){
+    fill(rgbr(82))
+    rect(x88,y114,30,30)
+    if(x88<90 && y114>=600){
+        y114=60
+        x88=540
+        control()
+        money+=3e56*constant13*constant14*constant15*(0.5+Math.random())//6
+    }else{
+        if(y114<=600){
+            y114+=3;
+        }else{
+            x88-=3;
+        }
+    }
+  }
+  if(t>=131){
+    fill(rgbr(83))
+    rect(x89,y115,30,30)
+    if(x89<90 && y115>=600){
+        y115=90
+        x89=510
+        control()
+        money+=1.5e57*constant13*constant14*constant15*(0.5+Math.random())//5
+    }else{
+        if(y115<=600){
+            y115+=3;
+        }else{
+            x89-=3;
+        }
+    }
+  }
+    if(t>=132){
+    fill(rgbr(83))
+    rect(x90,y116,30,30)
+    if(x90<90 && y116>=600){
+        y116=90
+        x90=540
+        control()
+        money+=1.5e57*constant13*constant14*constant15*(0.5+Math.random())//6
+    }else{
+        if(y116<=600){
+            y116+=3;
+        }else{
+            x90-=3;
+        }
+    }
+  }
+  if(t>=134){
+    fill(rgbr(86))
+    rect(x91,y117,30,30)
+    if(x91<90 && y117>=600){
+        y117=180
+        x91=510
+        control()
+        money+=4e58*constant14*constant15*(0.5+Math.random())//5
+    }else{
+        if(y117<=600){
+            y117+=3;
+        }else{
+            x91-=3;
+        }
+    }
+  }
+    if(t>=135){
+    fill(rgbr(86))
+    rect(x92,y118,30,30)
+    if(x92<90 && y118>=600){
+        y118=180
+        x92=540
+        control()
+        money+=4e58*constant14*constant15*(0.5+Math.random())//6
+    }else{
+        if(y118<=600){
+            y118+=3;
+        }else{
+            x92-=3;
+        }
+    }
+  }
+  if(t>=136){
+    fill(rgbr(87))
+    rect(x93,y119,30,30)
+    if(x93<90 && y119>=600){
+        y119=210
+        x93=510
+        control()
+        money+=2.5e59*constant14*constant15*(0.5+Math.random())//3
+    }else{
+        if(y119<=600){
+            y119+=3;
+        }else{
+            x93-=3;
+        }
+    }
+  }
+    if(t>=137){
+    fill(rgbr(87))
+    rect(xf2,yf2,30,30)
+    if(xf2<90 && yf2>=600){
+        yf2=210
+        xf2=540
+        control()
+        money+=2.5e59*constant14*constant15*(0.5+Math.random())//4
+    }else{
+        if(yf2<=600){
+            yf2+=3;
+        }else{
+            xf2-=3;
+        }
+    }
+  }
+  if(t>=138){
+    fill(rgbr(88))
+    rect(x95,y121,30,30)
+    if(x95<90 && y121>=600){
+        y121=240
+        x95=510
+        control()
+        money+=2.5e60*constant14*constant15*(0.5+Math.random())//5
+    }else{
+        if(y121<=600){
+            y121+=3;
+        }else{
+            x95-=3;
+        }
+    }
+  }
+    if(t>=139){
+    fill(rgbr(88))
+    rect(x96,y122,30,30)
+    if(x96<90 && y122>=600){
+        y122=240
+        x96=540
+        control()
+        money+=2.5e60*constant14*constant15*(0.5+Math.random())//6
+    }else{
+        if(y122<=600){
+            y122+=3;
+        }else{
+            x96-=3;
+        }
+    }
+  }
+  if(t>=140){
+    fill(rgbr(89))
+    rect(x97,y123,30,30)
+    if(x97<90 && y123>=600){
+        y123=270
+        x97=510
+        control()
+        money+=1.5e61*constant14*constant15*(0.5+Math.random())//7
+    }else{
+        if(y123<=600){
+            y123+=3;
+        }else{
+            x97-=3;
+        }
+    }
+  }
+    if(t>=141){
+    fill(rgbr(89))
+    rect(x98,y124,30,30)
+    if(x98<90 && y124>=600){
+        y124=270
+        x98=540
+        control()
+        money+=1.5e61*constant14*constant15*(0.5+Math.random())//8
+    }else{
+        if(y124<=600){
+            y124+=3;
+        }else{
+            x98-=3;
+        }
+    }
+  }
+  if(t>=143){
+    fill(rgbr(92))
+    rect(x99,y125,30,30)
+    if(x99<90 && y125>=600){
+        y125=360
+        x99=510
+        control()
+        money+=5e62*constant15*(0.5+Math.random())//1
+    }else{
+        if(y125<=600){
+            y125+=3;
+        }else{
+            x99-=3;
+        }
+    }
+  }
+    if(t>=144){
+    fill(rgbr(92))
+    rect(x100,y126,30,30)
+    if(x100<90 && y126>=600){
+        y126=360
+        x100=540
+        control()
+        money+=5e62*constant15*(0.5+Math.random())//2
+    }else{
+        if(y126<=600){
+            y126+=3;
+        }else{
+            x100-=3;
+        }
+    }
+  }
+  if(t>=145){
+    fill(rgbr(93))
+    rect(x101,y127,30,30)
+    if(x101<90 && y127>=600){
+        y127=390
+        x101=510
+        control()
+        money+=2e63*constant15*(0.5+Math.random())//3
+    }else{
+        if(y127<=600){
+            y127+=3;
+        }else{
+            x101-=3;
+        }
+    }
+  }
+    if(t>=146){
+    fill(rgbr(93))
+    rect(x102,y128,30,30)
+    if(x102<90 && y128>=600){
+        y128=390
+        x102=540
+        control()
+        money+=2e63*constant15*(0.5+Math.random())//4
+    }else{
+        if(y128<=600){
+            y128+=3;
+        }else{
+            x102-=3;
+        }
+    }
+  }
+  if(t>=147){
+    fill(rgbr(94))
+    rect(x103,y129,30,30)
+    if(x103<90 && y129>=600){
+        y129=420
+        x103=510
+        control()
+        money+=2e64*constant15*(0.5+Math.random())//5
+    }else{
+        if(y129<=600){
+            y129+=3;
+        }else{
+            x103-=3;
+        }
+    }
+  }
+    if(t>=148){//Here
+    fill(rgbr(94))
+    rect(x139,y193,30,30)
+    if(x139<90 && y193>=600){
+        y193=420
+        x139=540
+        control()
+        money+=2e64*constant15*(0.5+Math.random())//6
+    }else{
+        if(y193<=600){
+            y193+=3;
+        }else{
+            x139-=3;
+        }
+    }
+  }
+  if(t>=149){
+    fill(rgbr(95))
+    rect(x105,y131,30,30)
+    if(x105<90 && y131>=600){
+        y131=450
+        x105=510
+        control()
+        money+=1e65*constant15*(0.5+Math.random())//7
+    }else{
+        if(y131<=600){
+            y131+=3;
+        }else{
+            x105-=3;
+        }
+    }
+  }
+    if(t>=150){
+    fill(rgbr(95))
+    rect(x106,y132,30,30)
+    if(x106<90 && y132>=600){
+        y132=450
+        x104=540
+        control()
+        money+=1e65*constant15*(0.5+Math.random())//8
+    }else{
+        if(y132<=600){
+            y132+=3;
+        }else{
+            x106-=3;
+        }
+    }
+  }
+  if(t>=152){
+    fill(rgbr(98))
+    rect(x107,y133,30,30)
+    if(x107<90 && y133>=600){
+        y133=540
+        x107=510
+        control()
+        money+=8e66*(0.5+Math.random())//7
+    }else{
+        if(y133<=600){
+            y133+=3;
+        }else{
+            x107-=3;
+        }
+    }
+  }
+    if(t>=153){
+    fill(rgbr(98))
+    rect(x108,y134,30,30)
+    if(x108<90 && y134>=600){
+        y134=540
+        x108=540
+        control()
+        money+=8e66*(0.5+Math.random())//8
+    }else{
+        if(y134<=600){
+            y134+=3;
+        }else{
+            x108-=3;
+        }
+    }
+  }
+  if(t>=154){
+    fill(rgbr(99))
+    rect(x109,y135,30,30)
+    if(x109<90 && y135>=600){
+        y135=570
+        x109=510
+        control()
+        money+=5e67*(0.5+Math.random())//7
+    }else{
+        if(y135<=600){
+            y135+=3;
+        }else{
+            x109-=3;
+        }
+    }
+  }
+    if(t>=155){
+    fill(rgbr(99))
+    rect(x110,y136,30,30)
+    if(x110<90 && y136>=600){
+        y136=570
+        x110=540
+        control()
+        money+=5e67*(0.5+Math.random())//8
+    }else{
+        if(y136<=600){
+            y136+=3;
+        }else{
+            x110-=3;
+        }
+    }
+  }
+  if(t>=156){
+    fill(rgbr(100))
+    rect(x111,y137,30,30)
+    if(x111<90 && y137>=600){
+        y137=0
+        x111=630
+        control()
+        money+=7e68*constant16*constant17*constant18*(0.5+Math.random())//1
+    }else{
+        if(y137<=600){
+            y137+=3;
+        }else{
+            x111-=3;
+        }
+    }
+  }
+    if(t>=157){
+    fill(rgbr(100))
+    rect(x112,y138,30,30)
+    if(x112<90 && y138>=600){
+        y138=0
+        x112=660
+        control()
+        money+=7e68*constant16*constant17*constant18*(0.5+Math.random())//2
+    }else{
+        if(y138<=600){
+            y138+=3;
+        }else{
+            x112-=3;
+        }
+    }
+  }
+  if(t>=158){
+    fill(rgbr(101))
+    rect(x113,y139,30,30)
+    if(x113<90 && y139>=600){
+        y139=30
+        x113=630
+        control()
+        money+=3e69*constant16*constant17*constant18*(0.5+Math.random())//3
+    }else{
+        if(y139<=600){
+            y139+=3;
+        }else{
+            x113-=3;
+        }
+    }
+  }
+    if(t>=159){
+    fill(rgbr(101))
+    rect(x114,y140,30,30)
+    if(x114<90 && y140>=600){
+        y140=30
+        x114=660
+        control()
+        money+=3e69*constant16*constant17*constant18*(0.5+Math.random())//4
+    }else{
+        if(y140<=600){
+            y140+=3;
+        }else{
+            x114-=3;
+        }
+    }
+  }
+  if(t>=160){
+    fill(rgbr(102))
+    rect(x115,y141,30,30)
+    if(x115<90 && y141>=600){
+        y141=60
+        x115=630
+        control()
+        money+=1.2e70*constant16*constant17*constant18*(0.5+Math.random())//5
+    }else{
+        if(y141<=600){
+            y141+=3;
+        }else{
+            x115-=3;
+        }
+    }
+  }
+    if(t>=161){
+    fill(rgbr(102))
+    rect(x116,y142,30,30)
+    if(x116<90 && y142>=600){
+        y142=60
+        x116=660
+        control()
+        money+=1.2e70*constant16*constant17*constant18*(0.5+Math.random())//6
+    }else{
+        if(y142<=600){
+            y142+=3;
+        }else{
+            x116-=3;
+        }
+    }
+  }
+  if(t>=162){
+    fill(rgbr(103))
+    rect(x117,y143,30,30)
+    if(x117<90 && y143>=600){
+        y143=90
+        x117=630
+        control()
+        money+=5e70*constant16*constant17*constant18*(0.5+Math.random())//7
+    }else{
+        if(y143<=600){
+            y143+=3;
+        }else{
+            x117-=3;
+        }
+    }
+  }
+    if(t>=163){
+    fill(rgbr(103))
+    rect(x118,y144,30,30)
+    if(x118<90 && y144>=600){
+        y144=90
+        x118=660
+        control()
+        money+=5e70*constant16*constant17*constant18*(0.5+Math.random())//8
+    }else{
+        if(y144<=600){
+            y144+=3;
+        }else{
+            x118-=3;
+        }
+    }
+  }
+  if(t>=165){
+    fill(rgbr(106))
+    rect(x140,y194,30,30)
+    if(x140<90 && y194>=600){
+        y194=180
+        x140=630
+        control()
+        money+=2e72*constant17*constant18*(0.5+Math.random())//1
+    }else{
+        if(y194<=600){
+            y194+=3;
+        }else{
+            x140-=3;
+        }
+    }
+  }
+    if(t>=166){
+    fill(rgbr(106))
+    rect(x141,y195,30,30)
+    if(x141<90 && y195>=600){
+        y195=180
+        x141=660
+        control()
+        money+=2e72*constant17*constant18*(0.5+Math.random())//2
+    }else{
+        if(y195<=600){
+            y195+=3;
+        }else{
+            x141-=3;
+        }
+    }
+  }
+  if(t>=167){
+    fill(rgbr(107))
+    rect(x121,y147,30,30)
+    if(x121<90 && y147>=600){
+        y147=210
+        x121=630
+        control()
+        money+=1e73*constant17*constant18*(0.5+Math.random())//3
+    }else{
+        if(y147<=600){
+            y147+=3;
+        }else{
+            x121-=3;
+        }
+    }
+  }
+    if(t>=168){
+    fill(rgbr(107))
+    rect(x122,y148,30,30)
+    if(x122<90 && y148>=600){
+        y148=210
+        x122=660
+        control()
+        money+=1e73*constant17*constant18*(0.5+Math.random())//4
+    }else{
+        if(y148<=600){
+            y148+=3;
+        }else{
+            x122-=3;
+        }
+    }
+  }
+  if(t>=169){
+    fill(rgbr(108))
+    rect(x123,y149,30,30)
+    if(x123<90 && y149>=600){
+        y149=240
+        x123=630
+        control()
+        money+=4e73*constant17*constant18*(0.5+Math.random())//5
+    }else{
+        if(y149<=600){
+            y149+=3;
+        }else{
+            x123-=3;
+        }
+    }
+  }
+    if(t>=170){
+    fill(rgbr(108))
+    rect(x124,y150,30,30)
+    if(x124<90 && y150>=600){
+        y150=240
+        x124=660
+        control()
+        money+=4e73*constant17*constant18*(0.5+Math.random())//6
+    }else{
+        if(y150<=600){
+            y150+=3;
+        }else{
+            x124-=3;
+        }
+    }
+  }
+  if(t>=171){
+    fill(rgbr(109))
+    rect(x125,y151,30,30)
+    if(x125<90 && y151>=600){
+        y151=270
+        x125=630
+        control()
+        money+=2e74*constant17*constant18*(0.5+Math.random())//7
+    }else{
+        if(y151<=600){
+            y151+=3;
+        }else{
+            x125-=3;
+        }
+    }
+  }
+    if(t>=172){
+    fill(rgbr(109))
+    rect(x126,y152,30,30)
+    if(x126<90 && y152>=600){
+        y152=270
+        x126=660
+        control()
+        money+=2e74*constant17*constant18*(0.5+Math.random())//8
+    }else{
+        if(y152<=600){
+            y152+=3;
+        }else{
+            x126-=3;
+        }
+    }
+  }
+  if(t>=174){
+    fill(rgbr(112))
+    rect(x127,y153,30,30)
+    if(x127<90 && y153>=600){
+        y153=360
+        x127=630
+        control()
+        money+=4e75*constant18*(0.5+Math.random())//1
+    }else{
+        if(y153<=600){
+            y153+=3;
+        }else{
+            x127-=3;
+        }
+    }
+  }
+    if(t>=175){
+    fill(rgbr(112))
+    rect(x128,y154,30,30)
+    if(x128<90 && y154>=600){
+        y154=360
+        x128=660
+        control()
+        money+=4e75*constant18*(0.5+Math.random())//2
+    }else{
+        if(y154<=600){
+            y154+=3;
+        }else{
+            x128-=3;
+        }
+    }
+  }
+  if(t>=176){
+    fill(rgbr(113))
+    rect(x129,y155,30,30)
+    if(x129<90 && y155>=600){
+        y155=390
+        x129=630
+        control()
+        money+=2e76*constant18*(0.5+Math.random())//3
+    }else{
+        if(y155<=600){
+            y155+=3;
+        }else{
+            x129-=3;
+        }
+    }
+  }
+    if(t>=177){
+    fill(rgbr(113))
+    rect(x130,y156,30,30)
+    if(x130<90 && y156>=600){
+        y156=390
+        x130=660
+        control()
+        money+=2e76*constant18*(0.5+Math.random())//4
+    }else{
+        if(y156<=600){
+            y156+=3;
+        }else{
+            x130-=3;
+        }
+    }
+  }
+  if(t>=178){
+    fill(rgbr(114))
+    rect(x131,y157,30,30)
+    if(x131<90 && y157>=600){
+        y157=420
+        x131=630
+        control()
+        money+=1e77*constant18*(0.5+Math.random())//5
+    }else{
+        if(y157<=600){
+            y157+=3;
+        }else{
+            x131-=3;
+        }
+    }
+  }
+    if(t>=179){
+    fill(rgbr(114))
+    rect(x132,y158,30,30)
+    if(x132<90 && y158>=600){
+        y158=420
+        x132=660
+        control()
+        money+=1e77*constant18*(0.5+Math.random())//6
+    }else{
+        if(y158<=600){
+            y158+=3;
+        }else{
+            x132-=3;
+        }
+    }
+  }
+  if(t>=180){
+    fill(rgbr(115))
+    rect(x133,y159,30,30)
+    if(x133<90 && y159>=600){
+        y159=450
+        x133=630
+        control()
+        money+=3e77*constant18*(0.5+Math.random())//7
+    }else{
+        if(y159<=600){
+            y159+=3;
+        }else{
+            x133-=3;
+        }
+    }
+  }
+    if(t>=181){
+    fill(rgbr(115))
+    rect(x134,y160,30,30)
+    if(x134<90 && y160>=600){
+        y160=450
+        x134=660
+        control()
+        money+=3e77*constant18*(0.5+Math.random())//8
+    }else{
+        if(y160<=600){
+            y160+=3;
+        }else{
+            x134-=3;
+        }
+    }
+  }
+  if(t>=183){
+    fill(rgbr(118))
+    rect(x135,y161,30,30)
+    if(x135<90 && y161>=600){
+        y161=540
+        x135=630
+        control()
+        money+=1.5e79*(0.5+Math.random())//7
+    }else{
+        if(y161<=600){
+            y161+=3;
+        }else{
+            x135-=3;
+        }
+    }
+  }
+    if(t>=184){
+    fill(rgbr(118))
+    rect(x136,y162,30,30)
+    if(x136<90 && y162>=600){
+        y162=540
+        x136=660
+        control()
+        money+=1.5e79*(0.5+Math.random())//8
+    }else{
+        if(y162<=600){
+            y162+=3;
+        }else{
+            x136-=3;
+        }
+    }
+  }
+  if(t>=185){
+    fill(rgbr(119))
+    rect(x137,y163,30,30)
+    if(x137<90 && y163>=600){
+        y163=570
+        x137=630
+        control()
+        money+=5e79*(0.5+Math.random())//7
+    }else{
+        if(y163<=600){
+            y163+=3;
+        }else{
+            x137-=3;
+        }
+    }
+  }
+    if(t>=186){
+    fill(rgbr(119))
+    rect(x138,y164,30,30)
+    if(x138<90 && y164>=600){
+        y164=570
+        x138=660
+        control()
+        money+=5e79*(0.5+Math.random())//8
+    }else{
+        if(y164<=600){
+            y164+=3;
+        }else{
+            x138-=3;
+        }
+    }
+  }
+var mval=0
+//MINES
+  if(t>=1){
+    fill("rgb("+85+","+85+","+85+")")
+    rect(0,0,30,30)
+    fill("rgb("+r+","+g+","+b+")")
+    rect(5,5,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(30,0,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(10,5,50,20)
+    fill("rgb("+r+","+g+","+b+")")
+    rect(15,10,40,10)
+  }
+  if(t>=2){
+      fill("rgb("+85+","+85+","+85+")")
+    rect(90,0,30,30)
+    fill("rgb("+r+","+g+","+b+")")
+    rect(95,5,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(60,0,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(60,5,50,20)
+    fill("rgb("+r+","+g+","+b+")")
+    rect(65,10,40,10)
+  }
+  if(t>=3){
+      fill("rgb("+85+","+85+","+85+")")
+    rect(0,30,30,30)
+    fill("rgb("+r5+","+g5+","+b5+")")
+    rect(5,35,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(30,30,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(10,35,50,20)
+    fill("rgb("+r5+","+g5+","+b5+")")
+    rect(15,40,40,10)
+  }
+  if(t>=4){
+      fill("rgb("+85+","+85+","+85+")")
+    rect(90,30,30,30)
+    fill("rgb("+r5+","+g5+","+b5+")")
+    rect(95,35,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(60,30,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(60,35,50,20)
+    fill("rgb("+r5+","+g5+","+b5+")")
+    rect(65,40,40,10)
+  }
+  if(t>=5){
+      fill("rgb("+85+","+85+","+85+")")
+    rect(0,60,30,30)
+    fill("rgb("+r1+","+g1+","+b1+")")
+    rect(5,65,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(30,60,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(10,65,50,20)
+    fill("rgb("+r1+","+g1+","+b1+")")
+    rect(15,70,40,10)
+  }
+  if(t>=6){
+    fill("rgb("+85+","+85+","+85+")")
+    rect(90,60,30,30)
+    fill("rgb("+r1+","+g1+","+b1+")")
+    rect(95,65,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(60,60,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(60,65,50,20)
+    fill("rgb("+r1+","+g1+","+b1+")")
+    rect(65,70,40,10)
+  }
+  if(t>=7){
+      fill("rgb("+85+","+85+","+85+")")
+    rect(0,90,30,30)
+    fill("rgb("+r2+","+g2+","+b2+")")
+    rect(5,95,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(30,90,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(10,95,50,20)
+    fill("rgb("+r2+","+g2+","+b2+")")
+    rect(15,100,40,10)
+  }
+  if(t>=8){
+      fill("rgb("+85+","+85+","+85+")")
+    rect(90,90,30,30)
+    fill("rgb("+r2+","+g2+","+b2+")")
+    rect(95,95,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(60,90,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(60,95,50,20)
+    fill("rgb("+r2+","+g2+","+b2+")")
+    rect(65,100,40,10)
+  }
+  if(t>=10){
+      fill("rgb("+85+","+85+","+85+")")
+    rect(0,180,30,30)
+    fill("rgb("+r6+","+g6+","+b6+")")
+    rect(5,185,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(30,180,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(10,185,50,20)
+    fill("rgb("+r6+","+g6+","+b6+")")
+    rect(15,190,40,10)
+  }
+  if(t>=11){
+      fill("rgb("+85+","+85+","+85+")")
+    rect(90,180,30,30)
+    fill("rgb("+r6+","+g6+","+b6+")")
+    rect(95,185,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(60,180,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(60,185,50,20)
+    fill("rgb("+r6+","+g6+","+b6+")")
+    rect(65,190,40,10)
+  }
+  if(t>=12){
+      fill("rgb("+85+","+85+","+85+")")
+    rect(0,210,30,30)
+    fill("rgb("+r7+","+g7+","+b7+")")
+    rect(5,215,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(30,210,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(10,215,50,20)
+    fill("rgb("+r7+","+g7+","+b7+")")
+    rect(15,220,40,10)
+  }
+  if(t>=13){
+    fill("rgb("+85+","+85+","+85+")")
+    rect(90,210,30,30)
+    fill("rgb("+r7+","+g7+","+b7+")")
+    rect(95,215,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(60,210,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(60,215,50,20)
+    fill("rgb("+r7+","+g7+","+b7+")")
+    rect(65,220,40,10)
+  }
+  if(t>=14){
+    fill("rgb("+85+","+85+","+85+")")
+    rect(0,240,30,30)
+    fill("rgb("+r8+","+g8+","+b8+")")
+    rect(5,245,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(30,240,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(10,245,50,20)
+    fill("rgb("+r8+","+g8+","+b8+")")
+    rect(15,250,40,10)
+  }
+  if(t>=15){
+    fill("rgb("+85+","+85+","+85+")")
+    rect(90,240,30,30)
+    fill("rgb("+r8+","+g8+","+b8+")")
+    rect(95,245,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(60,240,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(60,245,50,20)
+    fill("rgb("+r8+","+g8+","+b8+")")
+    rect(65,250,40,10)
+  }
+  if(t>=16){
+    fill("rgb("+85+","+85+","+85+")")
+    rect(0,270,30,30)
+    fill("rgb("+r9+","+g9+","+b9+")")
+    rect(5,275,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(30,270,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(10,275,50,20)
+    fill("rgb("+r9+","+g9+","+b9+")")
+    rect(15,280,40,10)
+  }
+  if(t>=17){
+      fill("rgb("+85+","+85+","+85+")")
+    rect(90,270,30,30)
+    fill("rgb("+r9+","+g9+","+b9+")")
+    rect(95,275,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(60,270,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(60,275,50,20)
+    fill("rgb("+r9+","+g9+","+b9+")")
+    rect(65,280,40,10)
+  }
+  if(t>=19){
+    fill("rgb("+85+","+85+","+85+")")
+    rect(0,360,30,30)
+    fill("rgb("+r12+","+g12+","+b12+")")
+    rect(5,365,20,20)
+    fill("rgb("+150+","+150+","+150+")")
+    rect(30,360,30,30)
+    fill("rgb("+85+","+85+","+85+")")
+    rect(10,365,50,20)
+    fill("rgb("+r12+","+g12+","+b12+")")
+    rect(15,370,40,10)
+  }
+  if(t>=20){
+    fill("rgb("+85+","+85+","+85+")")
+  rect(90,360,30,30)
+  fill("rgb("+r12+","+g12+","+b12+")")
+  rect(95,365,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(60,360,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(60,365,50,20)
+  fill("rgb("+r12+","+g12+","+b12+")")
+  rect(65,370,40,10)
+}
+if(t>=21){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(0,390,30,30)
+  fill("rgb("+r13+","+g13+","+b13+")")
+  rect(5,395,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(30,390,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(10,395,50,20)
+  fill("rgb("+r13+","+g13+","+b13+")")
+  rect(15,400,40,10)
+}
+if(t>=22){
+  fill("rgb("+85+","+85+","+85+")")
+rect(90,390,30,30)
+fill("rgb("+r13+","+g13+","+b13+")")
+rect(95,395,20,20)
+fill("rgb("+150+","+150+","+150+")")
+rect(60,390,30,30)
+fill("rgb("+85+","+85+","+85+")")
+rect(60,395,50,20)
+fill("rgb("+r13+","+g13+","+b13+")")
+rect(65,400,40,10)
+}
+if(t>=23){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(0,420,30,30)
+  fill("rgb("+r14+","+g14+","+b14+")")
+  rect(5,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(30,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(10,425,50,20)
+  fill("rgb("+r14+","+g14+","+b14+")")
+  rect(15,430,40,10)
+}
+if(t>=24){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(90,420,30,30)
+  fill("rgb("+r14+","+g14+","+b14+")")
+  rect(95,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(60,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(60,425,50,20)
+  fill("rgb("+r14+","+g14+","+b14+")")
+  rect(65,430,40,10)
+}
+if(t>=25){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(0,450,30,30)
+  fill("rgb("+r15+","+g15+","+b15+")")
+  rect(5,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(30,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(10,455,50,20)
+  fill("rgb("+r15+","+g15+","+b15+")")
+  rect(15,460,40,10)
+}
+if(t>=26){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(90,450,30,30)
+  fill("rgb("+r15+","+g15+","+b15+")")
+  rect(95,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(60,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(60,455,50,20)
+  fill("rgb("+r15+","+g15+","+b15+")")
+  rect(65,460,40,10)
+}
+    if(t>=28){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(0,540,30,30)
+  fill("rgb("+r18+","+g18+","+b18+")")
+  rect(5,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(30,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(10,545,50,20)
+  fill("rgb("+r18+","+g18+","+b18+")")
+  rect(15,550,40,10)
+}
+    if(t>=29){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(90,540,30,30)
+  fill("rgb("+r18+","+g18+","+b18+")")
+  rect(95,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(60,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(60,545,50,20)
+  fill("rgb("+r18+","+g18+","+b18+")")
+  rect(65,550,40,10)
+}
+if(t>=30){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(0,570,30,30)
+  fill("rgb("+r19+","+g19+","+b19+")")
+  rect(5,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(30,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(10,575,50,20)
+  fill("rgb("+r19+","+g19+","+b19+")")
+  rect(15,580,40,10)
+}
+if(t>=31){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(90,570,30,30)
+  fill("rgb("+r19+","+g19+","+b19+")")
+  rect(95,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(60,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(60,575,50,20)
+  fill("rgb("+r19+","+g19+","+b19+")")
+  rect(65,580,40,10)
+}
+if(t>=32){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,0,30,30)
+  fill("rgb("+r20+","+g20+","+b20+")")
+  rect(125,5,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,0,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,5,50,20)
+  fill("rgb("+r20+","+g20+","+b20+")")
+  rect(135,10,40,10)
+}
+if(t>=33){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,0,30,30)
+  fill("rgb("+r20+","+g20+","+b20+")")
+  rect(215,5,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,0,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,5,50,20)
+  fill("rgb("+r20+","+g20+","+b20+")")
+  rect(185,10,40,10)
+}
+if(t>=34){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,30,30,30)
+  fill("rgb("+r21+","+g21+","+b21+")")
+  rect(125,35,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,30,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,35,50,20)
+  fill("rgb("+r21+","+g21+","+b21+")")
+  rect(135,40,40,10)
+}
+if(t>=35){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,30,30,30)
+  fill("rgb("+r21+","+g21+","+b21+")")
+  rect(215,35,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,30,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,35,50,20)
+  fill("rgb("+r21+","+g21+","+b21+")")
+  rect(185,40,40,10)
+}
+    if(t>=36){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,60,30,30)
+  fill("rgb("+r22+","+g22+","+b22+")")
+  rect(125,65,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,60,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,65,50,20)
+  fill("rgb("+r22+","+g22+","+b22+")")
+  rect(135,70,40,10)
+}
+if(t>=37){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,60,30,30)
+  fill("rgb("+r22+","+g22+","+b22+")")
+  rect(215,65,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,60,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,65,50,20)
+  fill("rgb("+r22+","+g22+","+b22+")")
+  rect(185,70,40,10)
+}
+if(t>=38){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,90,30,30)
+  fill("rgb("+r23+","+g23+","+b23+")")
+  rect(125,95,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,90,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,95,50,20)
+  fill("rgb("+r23+","+g23+","+b23+")")
+  rect(135,100,40,10)
+}
+if(t>=39){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,90,30,30)
+  fill("rgb("+r23+","+g23+","+b23+")")
+  rect(215,95,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,90,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,95,50,20)
+  fill("rgb("+r23+","+g23+","+b23+")")
+  rect(185,100,40,10)
+}
+if(t>=41){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,180,30,30)
+  fill("rgb("+r26+","+g26+","+b26+")")
+  rect(125,185,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,180,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,185,50,20)
+  fill("rgb("+r26+","+g26+","+b26+")")
+  rect(135,190,40,10)
+}
+if(t>=42){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,180,30,30)
+  fill("rgb("+r26+","+g26+","+b26+")")
+  rect(215,185,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,180,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,185,50,20)
+  fill("rgb("+r26+","+g26+","+b26+")")
+  rect(185,190,40,10)
+}
+if(t>=43){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,210,30,30)
+  fill("rgb("+r27+","+g27+","+b27+")")
+  rect(125,215,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,210,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,215,50,20)
+  fill("rgb("+r27+","+g27+","+b27+")")
+  rect(135,220,40,10)
+}
+if(t>=44){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,210,30,30)
+  fill("rgb("+r27+","+g27+","+b27+")")
+  rect(215,215,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,210,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,215,50,20)
+  fill("rgb("+r27+","+g27+","+b27+")")
+  rect(185,220,40,10)
+}
+if(t>=45){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,240,30,30)
+  fill("rgb("+r28+","+g28+","+b28+")")
+  rect(125,245,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,240,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,245,50,20)
+  fill("rgb("+r28+","+g28+","+b28+")")
+  rect(135,250,40,10)
+}
+if(t>=46){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,240,30,30)
+  fill("rgb("+r28+","+g28+","+b28+")")
+  rect(215,245,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,240,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,245,50,20)
+  fill("rgb("+r28+","+g28+","+b28+")")
+  rect(185,250,40,10)
+}
+if(t>=47){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,270,30,30)
+  fill("rgb("+r29+","+g29+","+b29+")")
+  rect(125,275,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,270,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,275,50,20)
+  fill("rgb("+r29+","+g29+","+b29+")")
+  rect(135,280,40,10)
+}
+if(t>=48){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,270,30,30)
+  fill("rgb("+r29+","+g29+","+b29+")")
+  rect(215,275,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,270,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,275,50,20)
+  fill("rgb("+r29+","+g29+","+b29+")")
+  rect(185,280,40,10)
+}
+if(t>=50){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,360,30,30)
+  fill("rgb("+r32+","+g32+","+b32+")")
+  rect(125,365,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,360,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,365,50,20)
+  fill("rgb("+r32+","+g32+","+b32+")")
+  rect(135,370,40,10)
+}
+if(t>=51){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,360,30,30)
+  fill("rgb("+r32+","+g32+","+b32+")")
+  rect(215,365,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,360,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,365,50,20)
+  fill("rgb("+r32+","+g32+","+b32+")")
+  rect(185,370,40,10)
+}
+if(t>=52){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,390,30,30)
+  fill("rgb("+r33+","+g33+","+b33+")")
+  rect(125,395,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,390,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,395,50,20)
+  fill("rgb("+r33+","+g33+","+b33+")")
+  rect(135,400,40,10)
+}
+if(t>=53){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,390,30,30)
+  fill("rgb("+r33+","+g33+","+b33+")")
+  rect(215,395,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,390,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,395,50,20)
+  fill("rgb("+r33+","+g33+","+b33+")")
+  rect(185,400,40,10)
+}
+if(t>=54){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,420,30,30)
+  fill("rgb("+r34+","+g34+","+b34+")")
+  rect(125,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,425,50,20)
+  fill("rgb("+r34+","+g34+","+b34+")")
+  rect(135,430,40,10)
+}
+if(t>=55){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,420,30,30)
+  fill("rgb("+r34+","+g34+","+b34+")")
+  rect(215,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,425,50,20)
+  fill("rgb("+r34+","+g34+","+b34+")")
+  rect(185,430,40,10)
+}
+if(t>=56){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,450,30,30)
+  fill("rgb("+r35+","+g35+","+b35+")")
+  rect(125,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,455,50,20)
+  fill("rgb("+r35+","+g35+","+b35+")")
+  rect(135,460,40,10)
+}
+if(t>=57){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,450,30,30)
+  fill("rgb("+r35+","+g35+","+b35+")")
+  rect(215,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,455,50,20)
+  fill("rgb("+r35+","+g35+","+b35+")")
+  rect(185,460,40,10)
+}
+if(t>=59){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,540,30,30)
+  fill("rgb("+r38+","+g38+","+b38+")")
+  rect(125,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,545,50,20)
+  fill("rgb("+r38+","+g38+","+b38+")")
+  rect(135,550,40,10)
+}
+if(t>=60){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,540,30,30)
+  fill("rgb("+r38+","+g38+","+b38+")")
+  rect(215,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,545,50,20)
+  fill("rgb("+r38+","+g38+","+b38+")")
+  rect(185,550,40,10)
+}
+if(t>=61){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(120,570,30,30)
+  fill("rgb("+r39+","+g39+","+b39+")")
+  rect(125,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(150,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(130,575,50,20)
+  fill("rgb("+r39+","+g39+","+b39+")")
+  rect(135,580,40,10)
+}
+if(t>=62){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(210,570,30,30)
+  fill("rgb("+r39+","+g39+","+b39+")")
+  rect(215,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(180,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(180,575,50,20)
+  fill("rgb("+r39+","+g39+","+b39+")")
+  rect(185,580,40,10)
+}
+if(t>=63){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,0,30,30)
+  fill("rgb("+r40+","+g40+","+b40+")")
+  rect(245,5,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,0,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,5,50,20)
+  fill("rgb("+r40+","+g40+","+b40+")")
+  rect(255,10,40,10)
+}
+if(t>=64){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,0,30,30)
+  fill("rgb("+r40+","+g40+","+b40+")")
+  rect(335,5,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,0,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,5,50,20)
+  fill("rgb("+r40+","+g40+","+b40+")")
+  rect(305,10,40,10)
+}
+if(t>=65){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,30,30,30)
+  fill("rgb("+r41+","+g41+","+b41+")")
+  rect(245,35,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,30,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,35,50,20)
+  fill("rgb("+r41+","+g41+","+b41+")")
+  rect(255,40,40,10)
+}
+if(t>=66){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,30,30,30)
+  fill("rgb("+r41+","+g41+","+b41+")")
+  rect(335,35,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,30,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,35,50,20)
+  fill("rgb("+r41+","+g41+","+b41+")")
+  rect(305,40,40,10)
+}
+if(t>=67){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,60,30,30)
+  fill("rgb("+r42+","+g42+","+b42+")")
+  rect(245,65,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,60,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,65,50,20)
+  fill("rgb("+r42+","+g42+","+b42+")")
+  rect(255,70,40,10)
+}
+if(t>=68){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,60,30,30)
+  fill("rgb("+r42+","+g42+","+b42+")")
+  rect(335,65,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,60,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,65,50,20)
+  fill("rgb("+r42+","+g42+","+b42+")")
+  rect(305,70,40,10)
+}
+if(t>=69){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,90,30,30)
+  fill("rgb("+r43+","+g43+","+b43+")")
+  rect(245,95,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,90,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,95,50,20)
+  fill("rgb("+r43+","+g43+","+b43+")")
+  rect(255,100,40,10)
+}
+if(t>=70){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,90,30,30)
+  fill("rgb("+r43+","+g43+","+b43+")")
+  rect(335,95,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,90,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,95,50,20)
+  fill("rgb("+r43+","+g43+","+b43+")")
+  rect(305,100,40,10)
+}
+if(t>=72){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,180,30,30)
+  fill("rgb("+r46+","+g46+","+b46+")")
+  rect(245,185,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,180,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,185,50,20)
+  fill("rgb("+r46+","+g46+","+b46+")")
+  rect(255,190,40,10)
+}
+if(t>=73){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,180,30,30)
+  fill("rgb("+r46+","+g46+","+b46+")")
+  rect(335,185,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,180,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,185,50,20)
+  fill("rgb("+r46+","+g46+","+b46+")")
+  rect(305,190,40,10)
+}
+if(t>=74){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,210,30,30)
+  fill("rgb("+r47+","+g47+","+b47+")")
+  rect(245,215,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,210,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,215,50,20)
+  fill("rgb("+r47+","+g47+","+b47+")")
+  rect(255,220,40,10)
+}
+if(t>=75){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,210,30,30)
+  fill("rgb("+r47+","+g47+","+b47+")")
+  rect(335,215,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,210,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,215,50,20)
+  fill("rgb("+r47+","+g47+","+b47+")")
+  rect(305,220,40,10)
+}
+if(t>=76){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,240,30,30)
+  fill("rgb("+r48+","+g48+","+b48+")")
+  rect(245,245,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,240,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,245,50,20)
+  fill("rgb("+r48+","+g48+","+b48+")")
+  rect(255,250,40,10)
+}
+if(t>=77){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,240,30,30)
+  fill("rgb("+r48+","+g48+","+b48+")")
+  rect(335,245,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,240,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,245,50,20)
+  fill("rgb("+r48+","+g48+","+b48+")")
+  rect(305,250,40,10)
+}
+if(t>=78){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,270,30,30)
+  fill("rgb("+r49+","+g49+","+b49+")")
+  rect(245,275,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,270,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,275,50,20)
+  fill("rgb("+r49+","+g49+","+b49+")")
+  rect(255,280,40,10)
+}
+if(t>=79){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,270,30,30)
+  fill("rgb("+r49+","+g49+","+b49+")")
+  rect(335,275,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,270,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,275,50,20)
+  fill("rgb("+r49+","+g49+","+b49+")")
+  rect(305,280,40,10)
+}
+if(t>=81){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,360,30,30)
+  fill("rgb("+r52+","+g52+","+b52+")")
+  rect(245,365,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,360,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,365,50,20)
+  fill("rgb("+r52+","+g52+","+b52+")")
+  rect(255,370,40,10)
+}
+if(t>=82){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,360,30,30)
+  fill("rgb("+r52+","+g52+","+b52+")")
+  rect(335,365,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,360,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,365,50,20)
+  fill("rgb("+r52+","+g52+","+b52+")")
+  rect(305,370,40,10)
+}
+if(t>=83){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,390,30,30)
+  fill("rgb("+r53+","+g53+","+b53+")")
+  rect(245,395,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,390,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,395,50,20)
+  fill("rgb("+r53+","+g53+","+b53+")")
+  rect(255,400,40,10)
+}
+if(t>=84){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,390,30,30)
+  fill("rgb("+r53+","+g53+","+b53+")")
+  rect(335,395,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,390,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,395,50,20)
+  fill("rgb("+r53+","+g53+","+b53+")")
+  rect(305,400,40,10)
+}
+if(t>=85){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,420,30,30)
+  fill(rgbr(54))
+  rect(245,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,425,50,20)
+  fill(rgbr(54))
+  rect(255,430,40,10)
+}
+if(t>=86){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,420,30,30)
+  fill(rgbr(54))
+  rect(335,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,425,50,20)
+  fill(rgbr(54))
+  rect(305,430,40,10)
+}
+if(t>=87){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,450,30,30)
+  fill(rgbr(55))
+  rect(245,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,455,50,20)
+  fill(rgbr(55))
+  rect(255,460,40,10)
+}
+if(t>=88){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,450,30,30)
+  fill(rgbr(55))
+  rect(335,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,455,50,20)
+  fill(rgbr(55))
+  rect(305,460,40,10)
+}
+if(t>=90){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,540,30,30)
+  fill(rgbr(58))
+  rect(245,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,545,50,20)
+  fill(rgbr(58))
+  rect(255,550,40,10)
+}
+if(t>=91){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,540,30,30)
+  fill(rgbr(58))
+  rect(335,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,545,50,20)
+  fill(rgbr(58))
+  rect(305,550,40,10)
+}
+if(t>=92){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(240,570,30,30)
+  fill(rgbr(59))
+  rect(245,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(270,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(250,575,50,20)
+  fill(rgbr(59))
+  rect(255,580,40,10)
+}
+if(t>=93){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(330,570,30,30)
+  fill(rgbr(59))
+  rect(335,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(300,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(300,575,50,20)
+  fill(rgbr(59))
+  rect(305,580,40,10)
+}
+if(t>=94){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,0,30,30)
+  fill(rgbr(60))
+  rect(365,5,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,0,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,5,50,20)
+  fill(rgbr(60))
+  rect(375,10,40,10)
+}
+if(t>=95){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,0,30,30)
+  fill(rgbr(60))
+  rect(455,5,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,0,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,5,50,20)
+  fill(rgbr(60))
+  rect(425,10,40,10)
+}
+if(t>=96){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,30,30,30)
+  fill(rgbr(61))
+  rect(365,35,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,30,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,35,50,20)
+  fill(rgbr(61))
+  rect(375,40,40,10)
+}
+if(t>=97){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,30,30,30)
+  fill(rgbr(61))
+  rect(455,35,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,30,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,35,50,20)
+  fill(rgbr(61))
+  rect(425,40,40,10)
+}
+if(t>=98){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,60,30,30)
+  fill(rgbr(62))
+  rect(365,65,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,60,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,65,50,20)
+  fill(rgbr(62))
+  rect(375,70,40,10)
+}
+if(t>=99){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,60,30,30)
+  fill(rgbr(62))
+  rect(455,65,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,60,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,65,50,20)
+  fill(rgbr(62))
+  rect(425,70,40,10)
+}
+if(t>=100){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,90,30,30)
+  fill(rgbr(63))
+  rect(365,95,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,90,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,95,50,20)
+  fill(rgbr(63))
+  rect(375,100,40,10)
+}
+if(t>=101){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,90,30,30)
+  fill(rgbr(63))
+  rect(455,95,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,90,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,95,50,20)
+  fill(rgbr(63))
+  rect(425,100,40,10)
+}
+if(t>=103){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,180,30,30)
+  fill(rgbr(66))
+  rect(365,185,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,180,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,185,50,20)
+  fill(rgbr(66))
+  rect(375,190,40,10)
+}
+if(t>=104){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,180,30,30)
+  fill(rgbr(66))
+  rect(455,185,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,180,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,185,50,20)
+  fill(rgbr(66))
+  rect(425,190,40,10)
+}
+if(t>=105){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,210,30,30)
+  fill(rgbr(67))
+  rect(365,215,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,210,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,215,50,20)
+  fill(rgbr(67))
+  rect(375,220,40,10)
+}
+if(t>=106){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,210,30,30)
+  fill(rgbr(67))
+  rect(455,215,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,210,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,215,50,20)
+  fill(rgbr(67))
+  rect(425,220,40,10)
+}
+if(t>=107){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,240,30,30)
+  fill(rgbr(68))
+  rect(365,245,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,240,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,245,50,20)
+  fill(rgbr(68))
+  rect(375,250,40,10)
+}
+if(t>=108){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,240,30,30)
+  fill(rgbr(68))
+  rect(455,245,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,240,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,245,50,20)
+  fill(rgbr(68))
+  rect(425,250,40,10)
+}
+if(t>=109){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,270,30,30)
+  fill(rgbr(69))
+  rect(365,275,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,270,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,275,50,20)
+  fill(rgbr(69))
+  rect(375,280,40,10)
+}
+if(t>=110){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,270,30,30)
+  fill(rgbr(69))
+  rect(455,275,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,270,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,275,50,20)
+  fill(rgbr(69))
+  rect(425,280,40,10)
+}
+if(t>=112){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,360,30,30)
+  fill(rgbr(72))
+  rect(365,365,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,360,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,365,50,20)
+  fill(rgbr(72))
+  rect(375,370,40,10)
+}
+if(t>=113){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,360,30,30)
+  fill(rgbr(72))
+  rect(455,365,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,360,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,365,50,20)
+  fill(rgbr(72))
+  rect(425,370,40,10)
+}
+if(t>=114){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,390,30,30)
+  fill(rgbr(73))
+  rect(365,395,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,390,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,395,50,20)
+  fill(rgbr(73))
+  rect(375,400,40,10)
+}
+if(t>=115){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,390,30,30)
+  fill(rgbr(73))
+  rect(455,395,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,390,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,395,50,20)
+  fill(rgbr(73))
+  rect(425,400,40,10)
+}
+if(t>=116){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,420,30,30)
+  fill(rgbr(74))
+  rect(365,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,425,50,20)
+  fill(rgbr(74))
+  rect(375,430,40,10)
+}
+if(t>=117){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,420,30,30)
+  fill(rgbr(74))
+  rect(455,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,425,50,20)
+  fill(rgbr(74))
+  rect(425,430,40,10)
+}
+if(t>=118){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,450,30,30)
+  fill(rgbr(75))
+  rect(365,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,455,50,20)
+  fill(rgbr(75))
+  rect(375,460,40,10)
+}
+if(t>=119){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,450,30,30)
+  fill(rgbr(75))
+  rect(455,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,455,50,20)
+  fill(rgbr(75))
+  rect(425,460,40,10)
+}
+if(t>=121){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,540,30,30)
+  fill(rgbr(78))
+  rect(365,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,545,50,20)
+  fill(rgbr(78))
+  rect(375,550,40,10)
+}
+if(t>=122){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,540,30,30)
+  fill(rgbr(78))
+  rect(455,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,545,50,20)
+  fill(rgbr(78))
+  rect(425,550,40,10)
+}
+if(t>=123){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(360,570,30,30)
+  fill(rgbr(79))
+  rect(365,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(390,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(370,575,50,20)
+  fill(rgbr(79))
+  rect(375,580,40,10)
+}
+if(t>=124){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(450,570,30,30)
+  fill(rgbr(79))
+  rect(455,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(420,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(420,575,50,20)
+  fill(rgbr(79))
+  rect(425,580,40,10)
+}
+if(t>=125){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,0,30,30)
+  fill(rgbr(80))
+  rect(485,5,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,0,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,5,50,20)
+  fill(rgbr(80))
+  rect(495,10,40,10)
+}//1
+if(t>=126){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,0,30,30)
+  fill(rgbr(80))
+  rect(575,5,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,0,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,5,50,20)
+  fill(rgbr(80))
+  rect(545,10,40,10)
+}//2
+if(t>=127){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,30,30,30)
+  fill(rgbr(81))
+  rect(485,35,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,30,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,35,50,20)
+  fill(rgbr(81))
+  rect(495,40,40,10)
+}//3
+if(t>=128){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,30,30,30)
+  fill(rgbr(81))
+  rect(575,35,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,30,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,35,50,20)
+  fill(rgbr(81))
+  rect(545,40,40,10)
+}//4
+if(t>=129){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,60,30,30)
+  fill(rgbr(82))
+  rect(485,65,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,60,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,65,50,20)
+  fill(rgbr(82))
+  rect(495,70,40,10)
+}//5
+if(t>=130){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,60,30,30)
+  fill(rgbr(82))
+  rect(575,65,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,60,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,65,50,20)
+  fill(rgbr(82))
+  rect(545,70,40,10)
+}//6
+if(t>=131){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,90,30,30)
+  fill(rgbr(83))
+  rect(485,95,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,90,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,95,50,20)
+  fill(rgbr(83))
+  rect(495,100,40,10)
+}//7
+if(t>=132){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,90,30,30)
+  fill(rgbr(83))
+  rect(575,95,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,90,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,95,50,20)
+  fill(rgbr(83))
+  rect(545,100,40,10)
+}//8
+if(t>=134){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,180,30,30)
+  fill(rgbr(86))
+  rect(485,185,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,180,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,185,50,20)
+  fill(rgbr(86))
+  rect(495,190,40,10)
+}//1:1
+if(t>=135){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,180,30,30)
+  fill(rgbr(86))
+  rect(575,185,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,180,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,185,50,20)
+  fill(rgbr(86))
+  rect(545,190,40,10)
+}//1:2
+if(t>=136){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,210,30,30)
+  fill(rgbr(87))
+  rect(485,215,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,210,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,215,50,20)
+  fill(rgbr(87))
+  rect(495,220,40,10)
+}//1:3
+if(t>=137){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,210,30,30)
+  fill(rgbr(87))
+  rect(575,215,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,210,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,215,50,20)
+  fill(rgbr(87))
+  rect(545,220,40,10)
+}//1:4
+if(t>=138){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,240,30,30)
+  fill(rgbr(88))
+  rect(485,245,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,240,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,245,50,20)
+  fill(rgbr(88))
+  rect(495,250,40,10)
+}//1:5
+if(t>=139){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,240,30,30)
+  fill(rgbr(88))
+  rect(575,245,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,240,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,245,50,20)
+  fill(rgbr(88))
+  rect(545,250,40,10)
+}//1:6
+if(t>=140){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,270,30,30)
+  fill(rgbr(89))
+  rect(485,275,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,270,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,275,50,20)
+  fill(rgbr(89))
+  rect(495,280,40,10)
+}//1:7
+if(t>=141){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,270,30,30)
+  fill(rgbr(89))
+  rect(575,275,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,270,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,275,50,20)
+  fill(rgbr(89))
+  rect(545,280,40,10)
+}//1:8
+if(t>=143){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,360,30,30)
+  fill(rgbr(92))
+  rect(485,365,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,360,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,365,50,20)
+  fill(rgbr(92))
+  rect(495,370,40,10)
+}//2:1
+if(t>=144){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,360,30,30)
+  fill(rgbr(92))
+  rect(575,365,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,360,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,365,50,20)
+  fill(rgbr(92))
+  rect(545,370,40,10)
+}//2:2
+if(t>=145){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,390,30,30)
+  fill(rgbr(93))
+  rect(485,395,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,390,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,395,50,20)
+  fill(rgbr(93))
+  rect(495,400,40,10)
+}//2:3
+if(t>=146){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,390,30,30)
+  fill(rgbr(93))
+  rect(575,395,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,390,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,395,50,20)
+  fill(rgbr(93))
+  rect(545,400,40,10)
+}//2:4
+if(t>=147){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,420,30,30)
+  fill(rgbr(94))
+  rect(485,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,425,50,20)
+  fill(rgbr(94))
+  rect(495,430,40,10)
+}//2:5
+if(t>=148){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,420,30,30)
+  fill(rgbr(94))
+  rect(575,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,425,50,20)
+  fill(rgbr(94))
+  rect(545,430,40,10)
+}//2:6
+if(t>=149){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,450,30,30)
+  fill(rgbr(95))
+  rect(485,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,455,50,20)
+  fill(rgbr(95))
+  rect(495,460,40,10)
+}//2:7
+if(t>=150){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,450,30,30)
+  fill(rgbr(95))
+  rect(575,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,455,50,20)
+  fill(rgbr(95))
+  rect(545,460,40,10)
+}//2:8
+if(t>=152){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,540,30,30)
+  fill(rgbr(98))
+  rect(485,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,545,50,20)
+  fill(rgbr(98))
+  rect(495,550,40,10)
+}//2:7
+if(t>=153){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,540,30,30)
+  fill(rgbr(98))
+  rect(575,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,545,50,20)
+  fill(rgbr(98))
+  rect(545,550,40,10)
+}//2:8
+if(t>=154){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(480,570,30,30)
+  fill(rgbr(99))
+  rect(485,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(510,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(490,575,50,20)
+  fill(rgbr(99))
+  rect(495,580,40,10)
+}//2:7
+if(t>=155){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(570,570,30,30)
+  fill(rgbr(99))
+  rect(575,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(540,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(540,575,50,20)
+  fill(rgbr(99))
+  rect(545,580,40,10)
+}//2:8
+if(t>=156){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,0,30,30)
+  fill(rgbr(100))
+  rect(605,5,20,20)
+  fill("rgb("+150+","+150+","+150+")")
+  rect(630,0,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,5,50,20)
+  fill(rgbr(100))
+  rect(615,10,40,10)
+}//1:1
+if(t>=157){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,0,30,30)
+  fill(rgbr(100))
+  rect(695,5,20,20)
+  fill("rgb("+150+","+150+","+150+")")//100
+  rect(660,0,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,5,50,20)
+  fill(rgbr(100))
+  rect(665,10,40,10)
+}//1:2
+if(t>=158){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,30,30,30)
+  fill(rgbr(101))
+  rect(605,35,20,20)
+  fill("rgb("+150+","+150+","+150+")")//101
+  rect(630,30,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,35,50,20)
+  fill(rgbr(101))
+  rect(615,40,40,10)
+}//1:3
+if(t>=159){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,30,30,30)
+  fill(rgbr(101))
+  rect(695,35,20,20)
+  fill("rgb("+150+","+150+","+150+")")//101
+  rect(660,30,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,35,50,20)
+  fill(rgbr(101))
+  rect(665,40,40,10)
+}//1:4
+if(t>=160){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,60,30,30)
+  fill(rgbr(102))
+  rect(605,65,20,20)
+  fill("rgb("+150+","+150+","+150+")")//102
+  rect(630,60,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,65,50,20)
+  fill(rgbr(102))
+  rect(615,70,40,10)
+}//1:5
+if(t>=161){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,60,30,30)
+  fill(rgbr(102))
+  rect(695,65,20,20)
+  fill("rgb("+150+","+150+","+150+")")//102
+  rect(660,60,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,65,50,20)
+  fill(rgbr(102))
+  rect(665,70,40,10)
+}//1:6
+if(t>=162){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,90,30,30)
+  fill(rgbr(103))
+  rect(605,95,20,20)
+  fill("rgb("+150+","+150+","+150+")")//103
+  rect(630,90,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,95,50,20)
+  fill(rgbr(103))
+  rect(615,100,40,10)
+}//1:7
+if(t>=163){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,90,30,30)
+  fill(rgbr(103))
+  rect(695,95,20,20)
+  fill("rgb("+150+","+150+","+150+")")//103
+  rect(660,90,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,95,50,20)
+  fill(rgbr(103))
+  rect(665,100,40,10)
+}//1:8
+if(t>=165){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,180,30,30)
+  fill(rgbr(106))
+  rect(605,185,20,20)
+  fill("rgb("+150+","+150+","+150+")")//106
+  rect(630,180,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,185,50,20)
+  fill(rgbr(106))
+  rect(615,190,40,10)
+}//2:1
+if(t>=166){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,180,30,30)
+  fill(rgbr(106))
+  rect(695,185,20,20)
+  fill("rgb("+150+","+150+","+150+")")//106
+  rect(660,180,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,185,50,20)
+  fill(rgbr(106))
+  rect(665,190,40,10)
+}//2:2
+if(t>=167){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,210,30,30)
+  fill(rgbr(107))
+  rect(605,215,20,20)
+  fill("rgb("+150+","+150+","+150+")")//107
+  rect(630,210,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,215,50,20)
+  fill(rgbr(107))
+  rect(615,220,40,10)
+}//2:3
+if(t>=168){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,210,30,30)
+  fill(rgbr(107))
+  rect(695,215,20,20)
+  fill("rgb("+150+","+150+","+150+")")//107
+  rect(660,210,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,215,50,20)
+  fill(rgbr(107))
+  rect(665,220,40,10)
+}//2:4
+if(t>=169){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,240,30,30)
+  fill(rgbr(108))
+  rect(605,245,20,20)
+  fill("rgb("+150+","+150+","+150+")")//108
+  rect(630,240,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,245,50,20)
+  fill(rgbr(108))
+  rect(615,250,40,10)
+}//2:5
+if(t>=170){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,240,30,30)
+  fill(rgbr(108))
+  rect(695,245,20,20)
+  fill("rgb("+150+","+150+","+150+")")//108
+  rect(660,240,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,245,50,20)
+  fill(rgbr(108))
+  rect(665,250,40,10)
+}//2:6
+if(t>=171){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,270,30,30)
+  fill(rgbr(109))
+  rect(605,275,20,20)
+  fill("rgb("+150+","+150+","+150+")")//109
+  rect(630,270,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,275,50,20)
+  fill(rgbr(109))
+  rect(615,280,40,10)
+}//2:7
+if(t>=172){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,270,30,30)
+  fill(rgbr(109))
+  rect(695,275,20,20)
+  fill("rgb("+150+","+150+","+150+")")//109
+  rect(660,270,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,275,50,20)
+  fill(rgbr(109))
+  rect(665,280,40,10)
+}//2:8
+if(t>=174){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,360,30,30)
+  fill(rgbr(112))
+  rect(605,365,20,20)
+  fill("rgb("+150+","+150+","+150+")")//112
+  rect(630,360,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,365,50,20)
+  fill(rgbr(112))
+  rect(615,370,40,10)
+}//3:1
+if(t>=175){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,360,30,30)
+  fill(rgbr(112))
+  rect(695,365,20,20)
+  fill("rgb("+150+","+150+","+150+")")//112
+  rect(660,360,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,365,50,20)
+  fill(rgbr(112))
+  rect(665,370,40,10)
+}//3:2
+if(t>=176){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,390,30,30)
+  fill(rgbr(113))
+  rect(605,395,20,20)
+  fill("rgb("+150+","+150+","+150+")")//113
+  rect(630,390,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,395,50,20)
+  fill(rgbr(113))
+  rect(615,400,40,10)
+}//3:3
+if(t>=177){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,390,30,30)
+  fill(rgbr(113))
+  rect(695,395,20,20)
+  fill("rgb("+150+","+150+","+150+")")//113
+  rect(660,390,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,395,50,20)
+  fill(rgbr(113))
+  rect(665,400,40,10)
+}//3:4
+if(t>=178){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,420,30,30)
+  fill(rgbr(114))
+  rect(605,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")//114
+  rect(630,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,425,50,20)
+  fill(rgbr(114))
+  rect(615,430,40,10)
+}//3:5
+if(t>=179){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,420,30,30)
+  fill(rgbr(114))
+  rect(695,425,20,20)
+  fill("rgb("+150+","+150+","+150+")")//114
+  rect(660,420,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,425,50,20)
+  fill(rgbr(114))
+  rect(665,430,40,10)
+}//3:6
+if(t>=180){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,450,30,30)
+  fill(rgbr(115))
+  rect(605,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")//115
+  rect(630,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,455,50,20)
+  fill(rgbr(115))
+  rect(615,460,40,10)
+}//3:7
+if(t>=181){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,450,30,30)
+  fill(rgbr(115))
+  rect(695,455,20,20)
+  fill("rgb("+150+","+150+","+150+")")//115
+  rect(660,450,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,455,50,20)
+  fill(rgbr(115))
+  rect(665,460,40,10)
+}//3:8
+if(t>=183){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,540,30,30)
+  fill(rgbr(118))
+  rect(605,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")//118
+  rect(630,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,545,50,20)
+  fill(rgbr(118))
+  rect(615,550,40,10)
+}//3:7
+if(t>=184){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,540,30,30)
+  fill(rgbr(118))
+  rect(695,545,20,20)
+  fill("rgb("+150+","+150+","+150+")")//118
+  rect(660,540,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,545,50,20)
+  fill(rgbr(118))
+  rect(665,550,40,10)
+}//3:8
+if(t>=185){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(600,570,30,30)
+  fill(rgbr(119))
+  rect(605,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")//119
+  rect(630,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(610,575,50,20)
+  fill(rgbr(119))
+  rect(615,580,40,10)
+}//3:7
+if(t>=186){
+  fill("rgb("+85+","+85+","+85+")")
+  rect(690,570,30,30)
+  fill(rgbr(119))
+  rect(695,575,20,20)
+  fill("rgb("+150+","+150+","+150+")")//119
+  rect(660,570,30,30)
+  fill("rgb("+85+","+85+","+85+")")
+  rect(660,575,50,20)
+  fill(rgbr(119))
+  rect(665,580,40,10)
+}//3:8
+//UPGRADERS
+if(t>=40){
+    fill("rgb("+r24+","+g24+","+b24+")")
+    rect(120,120,30,60)
+    rect(210,120,30,60)
+    fill("rgb("+r25+","+g25+","+b25+")")
+    rect(150,145,60,10)
+  }
+if(t>=49){
+    fill("rgb("+r30+","+g30+","+b30+")")
+    rect(120,300,30,60)
+    rect(210,300,30,60)
+    fill("rgb("+r31+","+g31+","+b31+")")
+    rect(150,325,60,10)
+  }
+  if(t>=58){
+    fill("rgb("+r36+","+g36+","+b36+")")
+    rect(120,480,30,60)
+    rect(210,480,30,60)
+    fill("rgb("+r37+","+g37+","+b37+")")
+    rect(150,505,60,10)
+  }
+if(t>=71){
+    fill("rgb("+r44+","+g44+","+b44+")")
+    rect(240,120,30,60)
+    rect(330,120,30,60)
+    fill("rgb("+r45+","+g45+","+b45+")")
+    rect(270,145,60,10)
+  }
+  if(t>=80){
+    fill(rgbr(50))
+    rect(240,300,30,60)
+    rect(330,300,30,60)
+    fill(rgbr(51))
+    rect(270,325,60,10)
+  }
+  if(t>=89){
+    fill(rgbr(56))
+    rect(240,480,30,60)
+    rect(330,480,30,60)
+    fill(rgbr(57))
+    rect(270,505,60,10)
+  }
+  if(t>=102){
+    fill(rgbr(64))
+    rect(360,120,30,60)
+    rect(450,120,30,60)
+    fill(rgbr(65))
+    rect(390,145,60,10)
+  }
+  if(t>=111){
+    fill(rgbr(70))
+    rect(360,300,30,60)
+    rect(450,300,30,60)
+    fill(rgbr(71))
+    rect(390,325,60,10)
+  }
+  if(t>=120){
+    fill(rgbr(76))
+    rect(360,480,30,60)
+    rect(450,480,30,60)
+    fill(rgbr(77))
+    rect(390,505,60,10)
+  }
+  if(t>=133){
+    fill(rgbr(84))
+    rect(480,120,30,60)
+    rect(570,120,30,60)
+    fill(rgbr(85))
+    rect(510,145,60,10)
+  }
+  if(t>=142){
+    fill(rgbr(90))
+    rect(480,300,30,60)
+    rect(570,300,30,60)
+    fill(rgbr(91))
+    rect(510,325,60,10)
+  }
+  if(t>=151){
+    fill(rgbr(96))
+    rect(480,480,30,60)
+    rect(570,480,30,60)
+    fill(rgbr(97))
+    rect(510,505,60,10)
+  }
+  if(t>=164){
+    fill(rgbr(104))
+    rect(600,120,30,60)
+    rect(690,120,30,60)
+    fill(rgbr(105))
+    rect(630,145,60,10)
+  }
+  if(t>=173){
+    fill(rgbr(110))
+    rect(600,300,30,60)
+    rect(690,300,30,60)
+    fill(rgbr(111))
+    rect(630,325,60,10)
+  }
+  if(t>=182){
+    fill(rgbr(116))
+    rect(600,480,30,60)
+    rect(690,480,30,60)
+    fill(rgbr(117))
+    rect(630,505,60,10)
+  }
+  if(t>=9){
+    fill("rgb("+r3+","+g3+","+b3+")")
+    rect(0,120,30,60)
+    rect(90,120,30,60)
+    fill("rgb("+r4+","+g4+","+b4+")")
+    rect(30,145,60,10)
+  }
+  if(t>=18){
+    fill("rgb("+r10+","+g10+","+b10+")")
+    rect(0,300,30,60)
+    rect(90,300,30,60)
+    fill("rgb("+r11+","+g11+","+b11+")")
+    rect(30,325,60,10)
+  }
+  if(t>=27){
+    fill("rgb("+r16+","+g16+","+b16+")")
+    rect(0,480,30,60)
+    rect(90,480,30,60)
+    fill("rgb("+r17+","+g17+","+b17+")")
+    rect(30,505,60,10)
+  }
+  fill("lime")
+  stx("50px Verdana")
+  text("$"+strpow10(log10(money)+rebirth*(log10(2)+80)),150,40)
+  if(t==0){
+      buyprog.value=1
+      document.getElementById("rebprog").value=money
+  }else{
+    buyprog.value=money 
+    document.getElementById("rebprog").value=money
+  }
+    
+},40)
+  </script>
+    <button onclick='buy()' ><p id='price0'>Upgrade $0</p><progress id='buyprog' value='1' max='0'></progress></button>
+  <button onclick='reb()' ><p id='price1'>Rebirth $2.5SxVg</p><progress id='rebprog' value='0' max='2.5e81'></progress></button>
+</body>
+</html>
